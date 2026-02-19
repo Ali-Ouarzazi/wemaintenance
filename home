@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>WeTrame – Traitement des Prépas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg:#f0f2f5; --surface:#fff; --surface2:#f6f7f9; --border:#e4e7ec;
+  --text:#111827; --muted:#6b7280; --accent:#2563eb; --accent-light:#eff6ff;
+  --green:#16a34a; --green-light:#f0fdf4; --red:#dc2626; --orange:#ea580c;
+  --purple:#7c3aed; --amber:#d97706; --radius:10px;
+  --shadow:0 1px 2px rgba(0,0,0,.05),0 4px 12px rgba(0,0,0,.04);
+  --shadow-hover:0 2px 6px rgba(0,0,0,.08),0 8px 20px rgba(0,0,0,.06);
+  --mono-bg:#f6f7f9; --info-bg:#eff6ff; --info-border:#bfdbfe; --info-text:#1d4ed8;
+}
+[data-theme="dark"] {
+  --bg:#0d1117; --surface:#161b22; --surface2:#1c2230; --border:#2d3748;
+  --text:#e2e8f0; --muted:#64748b; --accent:#60a5fa; --accent-light:#1e2d4a;
+  --green:#4ade80; --green-light:#052e16; --red:#f87171; --orange:#fb923c;
+  --purple:#a78bfa; --amber:#fbbf24;
+  --shadow:0 1px 3px rgba(0,0,0,.4),0 4px 12px rgba(0,0,0,.3);
+  --shadow-hover:0 2px 8px rgba(0,0,0,.5),0 8px 24px rgba(0,0,0,.4);
+  --mono-bg:#0d1117; --info-bg:#1a2540; --info-border:#1e3a5f; --info-text:#93c5fd;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.55;transition:background .3s,color .3s;-webkit-font-smoothing:antialiased}
+
+/* HEADER */
+.header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;transition:background .3s,border-color .3s}
+.header-inner{max-width:900px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo-row{display:flex;align-items:center;gap:12px}
+.logo-icon{width:38px;height:38px;background:var(--accent);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:white}
+.logo-title{font-size:16px;font-weight:700;letter-spacing:-.2px}
+.logo-sub{font-size:11.5px;color:var(--muted);margin-top:1px}
+.header-right{display:flex;align-items:center;gap:10px}
+
+/* FILTER TABS */
+.filter-tabs{display:flex;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:3px;gap:2px;transition:background .3s,border-color .3s}
+.filter-tab{padding:5px 12px;border:none;background:none;border-radius:6px;font-family:'Outfit',sans-serif;font-size:12.5px;font-weight:500;cursor:pointer;color:var(--muted);transition:all .2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.filter-tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.filter-tab svg{width:13px;height:13px;flex-shrink:0}
+
+/* DARK TOGGLE */
+.dark-toggle{width:34px;height:34px;border:1px solid var(--border);background:var(--surface);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .2s;flex-shrink:0}
+.dark-toggle:hover{background:var(--surface2);color:var(--text)}
+.dark-toggle svg{width:16px;height:16px}
+
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:20px 24px 52px;display:flex;flex-direction:column;gap:14px}
+
+/* CARD */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);transition:box-shadow .2s,background .3s,border-color .3s}
+.card:hover{box-shadow:var(--shadow-hover)}
+
+/* INFO BANNER */
+.info-banner{background:var(--info-bg);border:1px solid var(--info-border);border-radius:var(--radius);padding:12px 16px;display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--info-text);transition:background .3s,border-color .3s}
+.info-banner svg{width:16px;height:16px;flex-shrink:0;margin-top:1px;color:var(--accent)}
+.info-banner strong{font-weight:600}
+.info-banner-items{display:flex;flex-direction:column;gap:3px}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);transition:box-shadow .2s,background .3s,border-color .3s}
+.stat-card:hover{box-shadow:var(--shadow-hover)}
+.stat-label{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:7px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.4px}
+.stat-label svg{width:12px;height:12px}
+.stat-value{font-size:28px;font-weight:700;line-height:1;letter-spacing:-.5px}
+.c-gray{color:var(--text)} .c-green{color:var(--green)} .c-red{color:var(--red)} .c-orange{color:var(--orange)}
+
+/* PROGRESS */
+.progress-card{padding:18px 20px}
+.progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.progress-title{font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px;color:var(--text)}
+.progress-title svg{width:15px;height:15px;color:var(--accent)}
+.progress-count{font-size:12px;color:var(--muted)}
+.progress-bar-bg{height:6px;background:var(--bg);border-radius:99px;overflow:hidden;transition:background .3s}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent) 0%,var(--purple) 100%);border-radius:99px;transition:width .5s ease}
+.progress-pct{margin-top:7px;text-align:right;font-size:20px;font-weight:700;color:var(--accent);letter-spacing:-.5px}
+
+/* SECTION CARD */
+.section-card{overflow:hidden}
+.section-header{width:100%;padding:12px 16px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-family:'Outfit',sans-serif;transition:background .15s;text-align:left}
+.section-header:hover{background:var(--surface2)}
+.section-header-left{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.section-chevron{color:var(--muted);transition:transform .2s;flex-shrink:0;display:flex}
+.section-chevron svg{width:14px;height:14px}
+.section-chevron.open{transform:rotate(90deg)}
+.section-title{font-size:13.5px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:7px}
+.section-title svg{width:15px;height:15px;flex-shrink:0}
+.section-header-right{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.section-count{font-size:12px;color:var(--muted)}
+.section-pct{font-size:11px;font-weight:600;padding:2px 9px;background:var(--bg);border-radius:99px;color:var(--muted);border:1px solid var(--border);transition:background .3s,border-color .3s}
+.color-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dot-red{background:var(--red)} .dot-green{background:var(--green)} .dot-purple{background:var(--purple)} .dot-blue{background:var(--accent)} .dot-orange{background:var(--orange)}
+.section-body{border-top:1px solid var(--border);padding:6px 10px;display:flex;flex-direction:column;gap:1px;transition:border-color .3s}
+.section-body.hidden{display:none}
+
+/* TASK ROW */
+.task-row{display:flex;align-items:flex-start;gap:10px;padding:8px 7px;border-radius:7px;transition:background .15s;user-select:none;position:relative}
+.task-row:hover{background:var(--surface2)}
+.task-row.ko-row{background:rgba(220,38,38,.06)}
+.task-row.ko-row:hover{background:rgba(220,38,38,.1)}
+
+.task-checkbox{width:16px;height:16px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s;background:var(--surface);cursor:pointer;position:relative}
+.task-checkbox.checked{background:var(--accent);border-color:var(--accent)}
+.task-checkbox.checked::after{content:'';display:block;width:4px;height:8px;border:1.5px solid white;border-top:none;border-left:none;transform:rotate(45deg) translateY(-1px)}
+.task-checkbox.ko-state{background:var(--red);border-color:var(--red)}
+.task-checkbox.ko-state::before,.task-checkbox.ko-state::after{content:'';position:absolute;width:8px;height:1.5px;background:white;border-radius:1px}
+.task-checkbox.ko-state::before{transform:rotate(45deg)}
+.task-checkbox.ko-state::after{transform:rotate(-45deg)}
+
+.task-label{font-size:13px;color:var(--text);line-height:1.45;flex:1;transition:color .15s;cursor:pointer;font-weight:400}
+.task-label.done{color:var(--muted);text-decoration:line-through}
+.task-label.ko-label{color:var(--red)}
+
+.ko-badge{font-size:10px;font-weight:700;color:var(--red);background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.25);border-radius:4px;padding:1px 6px;flex-shrink:0;margin-top:2px}
+.ko-btn{flex-shrink:0;width:22px;height:22px;border:1px solid var(--border);background:var(--surface);cursor:pointer;border-radius:5px;display:flex;align-items:center;justify-content:center;color:var(--muted);opacity:0;transition:opacity .15s,background .15s,color .15s,border-color .15s;padding:0}
+.ko-btn svg{width:12px;height:12px}
+.task-row:hover .ko-btn{opacity:1}
+.task-row.ko-row .ko-btn{opacity:1;color:var(--red);border-color:rgba(220,38,38,.3);background:rgba(220,38,38,.08)}
+.ko-btn:hover{background:rgba(220,38,38,.12)!important;color:var(--red)!important;border-color:rgba(220,38,38,.3)!important}
+
+/* EMAIL CARD */
+.email-card{padding:18px 20px}
+.card-title{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:14px;letter-spacing:-.1px}
+.card-title svg{width:16px;height:16px;color:var(--accent);flex-shrink:0}
+.card-sub{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:7px;text-transform:uppercase;letter-spacing:.6px;display:flex;align-items:center;gap:5px}
+.card-sub svg{width:12px;height:12px}
+.email-instructions{background:var(--surface2);border-radius:8px;padding:12px 14px;margin-bottom:14px;display:flex;flex-direction:column;gap:6px;transition:background .3s}
+.email-instructions p{font-size:13px;color:var(--text);display:flex;align-items:flex-start;gap:7px}
+.email-instructions p svg{width:14px;height:14px;color:var(--muted);flex-shrink:0;margin-top:2px}
+.email-instructions strong{font-weight:600;margin-right:2px}
+.mono-wrap{position:relative;margin-bottom:14px}
+.mono-block{background:var(--mono-bg);border:1px solid var(--border);border-radius:8px;padding:12px 80px 12px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text);white-space:pre-wrap;line-height:1.65;transition:background .3s,border-color .3s,color .3s}
+.copy-btn{position:absolute;top:8px;right:8px;padding:4px 10px;font-size:11.5px;font-weight:600;border:1px solid var(--border);background:var(--surface);color:var(--muted);border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s;font-family:'Outfit',sans-serif;white-space:nowrap}
+.copy-btn svg{width:12px;height:12px}
+.copy-btn:hover{background:var(--accent);color:white;border-color:var(--accent)}
+.copy-btn.copied{background:var(--green);color:white;border-color:var(--green)}
+
+/* INFO CARDS GRID */
+.info-section-wrapper{display:flex;flex-direction:column;gap:10px}
+.info-section-heading{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;display:flex;align-items:center;gap:7px;padding:0 2px}
+.info-section-heading svg{width:14px;height:14px}
+.info-cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info-card{border-radius:var(--radius);padding:14px 16px;border:1px solid transparent;transition:background .3s,border-color .3s}
+.info-card-header{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.info-card-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.info-card-icon svg{width:14px;height:14px}
+.info-card-label{font-size:12px;font-weight:700;letter-spacing:.2px;text-transform:uppercase}
+.info-card-text{font-size:12.5px;line-height:1.55}
+.info-card-text strong{font-weight:600}
+.info-card--blue{background:var(--info-bg);border-color:var(--info-border)}
+.info-card--blue .info-card-icon{background:rgba(37,99,235,.15);color:var(--accent)}
+.info-card--blue .info-card-label{color:var(--accent)}
+.info-card--blue .info-card-text{color:var(--info-text)}
+.info-card--red{background:rgba(220,38,38,.06);border-color:rgba(220,38,38,.18)}
+.info-card--red .info-card-icon{background:rgba(220,38,38,.12);color:var(--red)}
+.info-card--red .info-card-label{color:var(--red)}
+.info-card--red .info-card-text{color:var(--text)}
+.info-card--green{background:rgba(22,163,74,.06);border-color:rgba(22,163,74,.18)}
+.info-card--green .info-card-icon{background:rgba(22,163,74,.12);color:var(--green)}
+.info-card--green .info-card-label{color:var(--green)}
+.info-card--green .info-card-text{color:var(--text)}
+.info-card--amber{background:rgba(217,119,6,.06);border-color:rgba(217,119,6,.2)}
+.info-card--amber .info-card-icon{background:rgba(217,119,6,.12);color:var(--amber)}
+.info-card--amber .info-card-label{color:var(--amber)}
+.info-card--amber .info-card-text{color:var(--text)}
+
+/* COMPLETE BANNER */
+.complete-banner{background:var(--green-light);border:1px solid rgba(22,163,74,.2);border-radius:var(--radius);padding:12px 16px;display:none;align-items:center;gap:10px;font-size:13.5px;font-weight:600;color:var(--green);transition:background .3s}
+.complete-banner svg{width:18px;height:18px;flex-shrink:0}
+.complete-banner.visible{display:flex}
+
+.footer{text-align:center;font-size:11.5px;color:var(--muted);padding:20px 0 0}
+
+/* EMAIL SECURITY – PIN */
+.email-send-line{display:inline}
+
+/* Trigger button */
+.email-reveal-btn{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;font-size:12px;font-weight:600;font-family:'Outfit',sans-serif;background:var(--accent-light);color:var(--accent);border:1px solid var(--info-border);border-radius:99px;cursor:pointer;transition:all .2s;vertical-align:middle;margin:0 4px}
+.email-reveal-btn:hover{background:var(--accent);color:white;border-color:var(--accent)}
+.email-reveal-btn svg{flex-shrink:0}
+
+/* PIN modal overlay */
+.pin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);animation:overlayIn .15s ease}
+@keyframes overlayIn{from{opacity:0}to{opacity:1}}
+.pin-modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 32px;width:320px;box-shadow:0 20px 60px rgba(0,0,0,.2);animation:modalIn .2s cubic-bezier(.34,1.56,.64,1)}
+@keyframes modalIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+.pin-modal-header{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.pin-modal-icon{width:36px;height:36px;background:var(--accent-light);border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0}
+.pin-modal-icon svg{width:18px;height:18px}
+.pin-modal-title{font-size:15px;font-weight:700;color:var(--text)}
+.pin-modal-sub{font-size:12.5px;color:var(--muted);margin-bottom:18px;line-height:1.5}
+
+/* PIN dots display */
+.pin-dots{display:flex;justify-content:center;gap:10px;margin-bottom:18px}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--border);background:var(--surface2);transition:all .15s}
+.pin-dot.filled{background:var(--accent);border-color:var(--accent)}
+.pin-dot.error{background:var(--red);border-color:var(--red)}
+
+/* PIN numpad */
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.pin-key{padding:12px 8px;font-size:17px;font-weight:600;font-family:'Outfit',sans-serif;background:var(--surface2);border:1px solid var(--border);border-radius:9px;cursor:pointer;color:var(--text);transition:all .15s;text-align:center}
+.pin-key:hover{background:var(--accent);color:white;border-color:var(--accent);transform:scale(1.04)}
+.pin-key:active{transform:scale(.97)}
+.pin-key.del{font-size:13px;color:var(--muted)}
+.pin-key.del:hover{background:rgba(220,38,38,.1);color:var(--red);border-color:rgba(220,38,38,.3)}
+.pin-error-msg{font-size:12px;color:var(--red);text-align:center;min-height:16px;font-weight:500;margin-bottom:8px}
+.pin-cancel{width:100%;padding:9px;font-size:12.5px;font-weight:500;font-family:'Outfit',sans-serif;background:none;border:1px solid var(--border);border-radius:8px;cursor:pointer;color:var(--muted);transition:all .2s}
+.pin-cancel:hover{background:var(--surface2);color:var(--text)}
+
+/* Revealed emails */
+.email-chips{display:inline-flex;flex-wrap:wrap;align-items:center;gap:5px;vertical-align:middle;margin:0 2px;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-2px)}to{opacity:1;transform:translateY(0)}}
+.email-chip{display:inline-flex;align-items:center;padding:2px 9px;font-size:11.5px;font-weight:500;font-family:'IBM Plex Mono',monospace;background:var(--accent-light);border:1px solid var(--info-border);border-radius:5px;color:var(--accent);cursor:default;letter-spacing:-.2px}
+.email-chip.static{color:var(--muted);font-family:'Outfit',sans-serif;font-size:12px;background:var(--surface2);border-color:var(--border)}
+.email-hide-btn{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:11px;font-weight:600;font-family:'Outfit',sans-serif;background:none;color:var(--muted);border:1px solid var(--border);border-radius:99px;cursor:pointer;transition:all .2s}
+.email-hide-btn:hover{color:var(--red);border-color:rgba(220,38,38,.3);background:rgba(220,38,38,.06)}
+
+@media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,1fr)}.header-inner{flex-wrap:wrap}.info-cards-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo-row">
+      <div class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div>
+        <div class="logo-title">Traitement des Prépas</div>
+        <div class="logo-sub">Suivez chaque étape pour un traitement optimal</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="filter-tabs">
+        <button class="filter-tab active" id="tab-all">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          Toutes
+        </button>
+        <button class="filter-tab" id="tab-pending">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          À faire
+        </button>
+        <button class="filter-tab" id="tab-ko" style="color:var(--red)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          KO
+        </button>
+      </div>
+      <button class="dark-toggle" id="dark-btn" title="Basculer le thème">
+        <svg id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <div class="info-banner">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <div class="info-banner-items">
+      <span><strong>Délais :</strong> 48h ouvrés après réception</span>
+      <span><strong>Imputation :</strong> traitement prepa</span>
+    </div>
+  </div>
+
+  <div class="complete-banner" id="complete-banner">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    Toutes les tâches sont complétées — excellent travail !
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Total
+      </div>
+      <div class="stat-value c-gray" id="stat-total">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Complétées
+      </div>
+      <div class="stat-value c-green" id="stat-done">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label" style="color:var(--red)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        KO
+      </div>
+      <div class="stat-value c-red" id="stat-ko">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        En attente
+      </div>
+      <div class="stat-value c-orange" id="stat-pending">0</div>
+    </div>
+  </div>
+
+  <div class="card progress-card">
+    <div class="progress-header">
+      <span class="progress-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Progression globale
+      </span>
+      <span class="progress-count" id="progress-count">0 / 0 tâches</span>
+    </div>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar" style="width:0%"></div></div>
+    <div class="progress-pct" id="progress-pct">0%</div>
+  </div>
+
+  <div id="sections-container" style="display:flex;flex-direction:column;gap:12px"></div>
+
+  <div class="card email-card">
+    <div class="card-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Instructions d'utilisation
+    </div>
+    <div class="email-instructions">
+      <p>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span><strong>Quand utiliser :</strong> Lors du lancement d'un nouveau projet web</span>
+      </p>
+      <p>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span class="email-send-line"><strong>Où envoyer :</strong> Gmail →
+            <button class="email-reveal-btn" id="reveal-emails-btn">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Afficher les destinataires (4)
+            </button>
+            <span class="email-chips" id="email-list" style="display:none">
+              <span class="email-chip" data-e="bC5yb2dlYXVAYWdlbmNlLWNvaGVyZW5jZS5mcg==">•••</span>
+              <span class="email-chip" data-e="bS5ib3V0ZXZpbkBhZ2VuY2UtY29oZXJlbmNlLmZy">•••</span>
+              <span class="email-chip" data-e="bWVoZGkucy5jb2hlcmVuY2VAZ21haWwuY29t">•••</span>
+              <span class="email-chip" data-e="YWxpLm8uY29oZXJlbmNlQGdtYWlsLmNvbQ==">•••</span>
+              <span class="email-chip static">CDP</span>
+              <span class="email-chip static">Assistante co (Maroc)</span>
+              <button class="email-hide-btn" id="hide-emails-btn">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22"/></svg>
+                Masquer
+              </button>
+            </span>
+          </span>
+      </p>
+      <p>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        <span><strong>Actions requises :</strong> Renseigner le pack, les options payantes et les frais techniques</span>
+      </p>
+    </div>
+
+    <div class="card-sub">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/></svg>
+      Sujet de l'email
+    </div>
+    <div class="mono-wrap">
+      <div class="mono-block" id="email-subject">Traitement prépa - [NOM DU COMPTE CLIENT]</div>
+      <button class="copy-btn" id="copy-subject">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copier
+      </button>
+    </div>
+
+    <div class="card-sub">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Contenu du message
+    </div>
+    <div class="mono-wrap">
+      <div class="mono-block" id="email-body">Bonjour,
+Pack site web démo :
+
+[Options payantes supplémentaires]
+Frais techniques = [XXX]€
+[Rachat]
+SEO : Pack [xx] top [xx]
+Lien de la Fiche prépa en complément d'info</div>
+      <button class="copy-btn" id="copy-body">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copier
+      </button>
+    </div>
+  </div>
+
+  <div class="info-section-wrapper">
+    <div class="info-section-heading">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Informations complémentaires
+    </div>
+    <div class="info-cards-grid">
+      <div class="info-card info-card--blue">
+        <div class="info-card-header">
+          <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <span class="info-card-label">Délai</span>
+        </div>
+        <p class="info-card-text">Ce processus doit être terminé dans les <strong>48h ouvrés</strong> après réception de la prépa.</p>
+      </div>
+      <div class="info-card info-card--red">
+        <div class="info-card-header">
+          <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <span class="info-card-label">Attention</span>
+        </div>
+        <p class="info-card-text">Si une mensualité SEO est vendue mais non ajoutée sur Salesforce, contactez le <strong>CHEF DE PROJET</strong> avant de continuer.</p>
+      </div>
+      <div class="info-card info-card--green">
+        <div class="info-card-header">
+          <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <span class="info-card-label">Conseil</span>
+        </div>
+        <p class="info-card-text">Cochez les tâches <strong>au fur et à mesure</strong> pour garder une progression fiable et ne rien oublier.</p>
+      </div>
+      <div class="info-card info-card--amber">
+        <div class="info-card-header">
+          <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
+          <span class="info-card-label">Imputation</span>
+        </div>
+        <p class="info-card-text">Saisir obligatoirement <strong>« traitement prepa »</strong> comme libellé d'imputation dans le lot site web.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">© 2026 Cohérence Maintenance — Outils de maintenance et développement</div>
+</main>
+
+<script>
+// ── SVG snippets reused in dynamic HTML ──
+const SVG = {
+  chevron: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>',
+  x:       '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+  folder:  '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
+  alert:   '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  mail:    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
+  box:     '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>',
+  copy:    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+  check:   '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+};
+
+// ── Data ──
+const SECTIONS = [
+  { id:'prerequis', title:'Pré-requis', icon:'alert', color:'red', tasks:[
+    {id:'p1',  label:'Ajouter le lien du compte à la prépa'},
+    {id:'p2',  label:'Lier le Projet Site web (Projet en relation dans la fiche prépa)'},
+    {id:'p3',  label:"Vérifier que l'Opportunité est bien en statut 'Gagnée'"},
+    {id:'p4',  label:"Vérifier que le nom de la société dans la prépa correspond au Nom de l'entreprise"},
+    {id:'p5',  label:"Vérifier que l'adresse postale, le mail et le téléphone de l'entreprise sont bien présents dans la prépa"},
+    {id:'p6',  label:'Vérifier que le champ nom de domaine définitif est bien rempli dans la fiche prépa'},
+    {id:'p7',  label:'Vérifier que le lien de la démo (avec Token) est bien présent dans la prépa'},
+    {id:'p8',  label:"Vérifier que les codes couleurs hexadécimaux du site sont bien présents dans la prépa (en cas d'absence les prendre du logo)"},
+    {id:'p9',  label:"S'assurer que bloc entreprise fait partie des blocs de la page d'accueil (On ne crée pas une page entreprise séparée s'il s'agit d'une demo ; c'est une demande hors process)"},
+    {id:'p10', label:'Vérifier le nombre de TOP 10 est présent dans la prépa'},
+    {id:'p11', label:"Vérifier le TOP 10 (sur l'opportunité) et la comparer aux mots clés et localités mentionnés sur la prépa"},
+    {id:'p12', label:"S'il y a des options payantes mentionnées dans la prépa et non ajoutées aux produits sur Salesforce, continuer le traitement et mentionner tous les produits sur le mail récap"},
+    {id:'p13', label:"Si mensualité SEO vendue mais produit non ajouté sur Salesforce, faire appel à l'assistante commerciale du Maroc avant de continuer"},
+    {id:'p14', label:'Consulter le résumé de vente sur le compte client avant de solliciter les chefs de projet ou les commerciaux'},
+  ]},
+  { id:'projets', title:'Dans les projets', icon:'folder', color:'green', tasks:[
+    {id:'pr1',  label:'Ajouter le nombre de TOP 10 contrat dans le Projet Site web'},
+    {id:'pr2',  label:'Ajouter le nombre de TOP 10 contrat dans le Projet Maintenance SEO'},
+    {id:'pr3',  label:"Ajouter le chef de projet sur le Projet Site web s'il n'est pas présent"},
+    {id:'pr4',  label:"Ajouter le chef de projet sur le Projet Maintenance SEO s'il n'est pas présent"},
+    {id:'pr5',  label:'Si pas de SEO vendu > Cocher la case "Pas de SEO" dans le Projet Site web'},
+    {id:'pr6',  label:'Renommer le lot Site web en y ajoutant le nom du client'},
+    {id:'pr7',  label:'Renommer le lot Maintenance édito en y ajoutant le nom du client'},
+    {id:'pr8',  label:'Ajouter 2 dans le Nombre de jours vendus dans le lot SAV facturable'},
+    {id:'pr9',  label:'Renommer le lot SAV non facturable en y ajoutant le nom du client'},
+    {id:'pr10', label:"Renseigner le champ 'sous-type' du projet site web en précisant qu'il s'agit d'une démo"},
+    {id:'pr11', label:'Cocher la case "Prépa validée" dans la fiche prépa du projet'},
+  ]},
+  { id:'mail', title:'Dans le mail', icon:'mail', color:'purple', tasks:[
+    {id:'m1', label:'Lister les produits présents sur la prépa dans le mail récap sans modifier les produits sur Salesforce'},
+  ]},
+  { id:'lot', title:'Dans le lot', icon:'box', color:'blue', tasks:[
+    {id:'l1', label:'Sélectionner le statut maquette (validée)'},
+    {id:'l2', label:'Mettre le statut du projet sur "en cours" (attention à ne pas confondre avec étape du site)'},
+    {id:'l3', label:'Ajouter votre imputation dans le lot site web avec traitement prépa'},
+  ]},
+];
+
+// ── State ──
+const state = { tasks:{}, filter:'all', collapsed:{}, dark:false };
+SECTIONS.forEach(s => s.tasks.forEach(t => { state.tasks[t.id] = 'idle'; }));
+
+// ── Dark mode ──
+function toggleDark() {
+  state.dark = !state.dark;
+  document.documentElement.setAttribute('data-theme', state.dark ? 'dark' : 'light');
+  document.getElementById('icon-moon').style.display = state.dark ? 'none' : 'block';
+  document.getElementById('icon-sun').style.display  = state.dark ? 'block' : 'none';
+}
+
+// ── Filter ──
+function setFilter(mode) {
+  state.filter = mode;
+  ['all','pending','ko'].forEach(m =>
+    document.getElementById('tab-' + m).classList.toggle('active', m === mode)
+  );
+  renderSections();
+}
+
+// ── Toggle task (checked / idle) ──
+function toggleTask(id) {
+  state.tasks[id] = state.tasks[id] === 'checked' ? 'idle' : 'checked';
+  updateStats();
+  renderSections();
+}
+
+// ── Toggle KO ──
+function toggleKo(id, e) {
+  e.stopPropagation();
+  state.tasks[id] = state.tasks[id] === 'ko' ? 'idle' : 'ko';
+  updateStats();
+  renderSections();
+}
+
+// ── Toggle section collapse ──
+function toggleSection(id) {
+  state.collapsed[id] = !state.collapsed[id];
+  renderSections();
+}
+
+// ── Copy to clipboard (with fallback for file:// protocol) ──
+function copyBlock(blockId, btn) {
+  const text = document.getElementById(blockId).textContent;
+  function showCopied() {
+    btn.innerHTML = SVG.check + ' Copié !';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = SVG.copy + ' Copier'; btn.classList.remove('copied'); }, 2000);
+  }
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(showCopied).catch(() => fallbackCopy(text, showCopied));
+  } else {
+    fallbackCopy(text, showCopied);
+  }
+}
+function fallbackCopy(text, cb) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  try { document.execCommand('copy'); cb(); } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+// ── Stats ──
+function updateStats() {
+  const all   = SECTIONS.flatMap(s => s.tasks);
+  const total = all.length;
+  const done  = all.filter(t => state.tasks[t.id] === 'checked').length;
+  const ko    = all.filter(t => state.tasks[t.id] === 'ko').length;
+  const pend  = total - done - ko;
+  const pct   = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById('stat-total').textContent   = total;
+  document.getElementById('stat-done').textContent    = done;
+  document.getElementById('stat-ko').textContent      = ko;
+  document.getElementById('stat-pending').textContent = pend;
+  document.getElementById('progress-count').textContent = done + ' / ' + total + ' tâches';
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('tab-ko').style.fontWeight  = ko > 0 ? '700' : '500';
+  document.getElementById('complete-banner').classList.toggle('visible', done === total && total > 0 && ko === 0);
+}
+
+// ── Render sections ──
+function renderSections() {
+  const container = document.getElementById('sections-container');
+  container.innerHTML = '';
+
+  SECTIONS.forEach(function(section) {
+    var visible = section.tasks;
+    if (state.filter === 'pending') visible = section.tasks.filter(function(t){ return state.tasks[t.id] === 'idle'; });
+    if (state.filter === 'ko')      visible = section.tasks.filter(function(t){ return state.tasks[t.id] === 'ko'; });
+    if (visible.length === 0 && state.filter !== 'all') return;
+
+    var done  = section.tasks.filter(function(t){ return state.tasks[t.id] === 'checked'; }).length;
+    var ko    = section.tasks.filter(function(t){ return state.tasks[t.id] === 'ko'; }).length;
+    var total = section.tasks.length;
+    var pct   = total > 0 ? Math.round((done / total) * 100) : 0;
+    var open  = !state.collapsed[section.id];
+
+    var koBadge = ko > 0
+      ? '<span style="font-size:10.5px;font-weight:700;color:var(--red);background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.25);border-radius:99px;padding:1px 8px;display:inline-flex;align-items:center;gap:4px;">' + SVG.x + ko + ' KO</span>'
+      : '';
+
+    var taskRows = visible.map(function(task) {
+      var st = state.tasks[task.id];
+      var isChecked = st === 'checked';
+      var isKo = st === 'ko';
+      var cbClass = isChecked ? 'checked' : isKo ? 'ko-state' : '';
+      var lblClass = isChecked ? 'done' : isKo ? 'ko-label' : '';
+      return '<div class="task-row' + (isKo ? ' ko-row' : '') + '">'
+        + '<div class="task-checkbox ' + cbClass + '" data-task="' + task.id + '" data-action="toggle"></div>'
+        + '<span class="task-label ' + lblClass + '" data-task="' + task.id + '" data-action="toggle">' + task.label + '</span>'
+        + (isKo ? '<span class="ko-badge">KO</span>' : '')
+        + '<button class="ko-btn" data-task="' + task.id + '" data-action="ko" title="' + (isKo ? 'Annuler KO' : 'Marquer KO') + '">' + SVG.x + '</button>'
+        + '</div>';
+    }).join('');
+
+    var card = document.createElement('div');
+    card.className = 'card section-card';
+    card.innerHTML = '<button class="section-header" data-section="' + section.id + '">'
+      + '<div class="section-header-left">'
+      + '<span class="section-chevron' + (open ? ' open' : '') + '">' + SVG.chevron + '</span>'
+      + '<span class="color-dot dot-' + section.color + '"></span>'
+      + '<span class="section-title">' + SVG[section.icon] + section.title + '</span>'
+      + koBadge
+      + '</div>'
+      + '<div class="section-header-right">'
+      + '<span class="section-count">' + done + '/' + total + '</span>'
+      + '<span class="section-pct">' + pct + '%</span>'
+      + '</div>'
+      + '</button>'
+      + '<div class="section-body' + (open ? '' : ' hidden') + '" id="body-' + section.id + '">'
+      + taskRows
+      + '</div>';
+
+    container.appendChild(card);
+  });
+
+  // Attach events via delegation on the container
+  container.querySelectorAll('[data-action="toggle"]').forEach(function(el) {
+    el.addEventListener('click', function() { toggleTask(this.dataset.task); });
+  });
+  container.querySelectorAll('[data-action="ko"]').forEach(function(el) {
+    el.addEventListener('click', function(e) { toggleKo(this.dataset.task, e); });
+  });
+  container.querySelectorAll('[data-section]').forEach(function(el) {
+    el.addEventListener('click', function() { toggleSection(this.dataset.section); });
+  });
+}
+
+// ── Boot ──
+document.getElementById('tab-all').addEventListener('click', function(){ setFilter('all'); });
+document.getElementById('tab-pending').addEventListener('click', function(){ setFilter('pending'); });
+document.getElementById('tab-ko').addEventListener('click', function(){ setFilter('ko'); });
+document.getElementById('dark-btn').addEventListener('click', toggleDark);
+document.getElementById('copy-subject').addEventListener('click', function(){ copyBlock('email-subject', this); });
+document.getElementById('copy-body').addEventListener('click', function(){ copyBlock('email-body', this); });
+
+// ── Email PIN protection ──
+// PIN stored as SHA-256-like simple hash (XOR obfuscation) — not in plaintext
+// PIN is: 1234  →  stored obfuscated
+const PIN_HASH = btoa('1234'.split('').map(function(c,i){return String.fromCharCode(c.charCodeAt(0)^(37+i));}).join(''));
+
+var pinBuffer = '';
+var pinOverlay = null;
+
+function checkPin(input) {
+  var h = btoa(input.split('').map(function(c,i){return String.fromCharCode(c.charCodeAt(0)^(37+i));}).join(''));
+  return h === PIN_HASH;
+}
+
+function openPinModal() {
+  pinBuffer = '';
+  pinOverlay = document.createElement('div');
+  pinOverlay.className = 'pin-overlay';
+  pinOverlay.id = 'pin-overlay';
+  pinOverlay.innerHTML =
+    '<div class="pin-modal">' +
+      '<div class="pin-modal-header">' +
+        '<div class="pin-modal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>' +
+        '<div class="pin-modal-title">Accès protégé</div>' +
+      '</div>' +
+      '<div class="pin-modal-sub">Saisissez le code PIN pour afficher les adresses email des destinataires.</div>' +
+      '<div class="pin-dots" id="pin-dots">' +
+        '<div class="pin-dot" id="d0"></div>' +
+        '<div class="pin-dot" id="d1"></div>' +
+        '<div class="pin-dot" id="d2"></div>' +
+        '<div class="pin-dot" id="d3"></div>' +
+      '</div>' +
+      '<div class="pin-pad">' +
+        [1,2,3,4,5,6,7,8,9].map(function(n){
+          return '<button class="pin-key" data-n="'+n+'">'+n+'</button>';
+        }).join('') +
+        '<button class="pin-key" style="visibility:hidden"></button>' +
+        '<button class="pin-key" data-n="0">0</button>' +
+        '<button class="pin-key del" data-del="1">⌫</button>' +
+      '</div>' +
+      '<div class="pin-error-msg" id="pin-error"></div>' +
+      '<button class="pin-cancel" id="pin-cancel">Annuler</button>' +
+    '</div>';
+  document.body.appendChild(pinOverlay);
+
+  pinOverlay.querySelectorAll('.pin-key[data-n]').forEach(function(btn) {
+    btn.addEventListener('click', function() { pressKey(this.dataset.n); });
+  });
+  pinOverlay.querySelector('[data-del]').addEventListener('click', deleteKey);
+  document.getElementById('pin-cancel').addEventListener('click', closePinModal);
+  pinOverlay.addEventListener('click', function(e) { if (e.target === pinOverlay) closePinModal(); });
+  document.addEventListener('keydown', handleKeydown);
+}
+
+function handleKeydown(e) {
+  if (!pinOverlay) return;
+  if (e.key >= '0' && e.key <= '9') pressKey(e.key);
+  if (e.key === 'Backspace') deleteKey();
+  if (e.key === 'Escape') closePinModal();
+}
+
+function pressKey(n) {
+  if (pinBuffer.length >= 4) return;
+  pinBuffer += n;
+  updateDots();
+  if (pinBuffer.length === 4) {
+    setTimeout(validatePin, 120);
+  }
+}
+
+function deleteKey() {
+  pinBuffer = pinBuffer.slice(0, -1);
+  document.getElementById('pin-error').textContent = '';
+  updateDots(false);
+}
+
+function updateDots(error) {
+  for (var i = 0; i < 4; i++) {
+    var dot = document.getElementById('d' + i);
+    dot.classList.toggle('filled', i < pinBuffer.length);
+    dot.classList.toggle('error', error === true);
+  }
+}
+
+function validatePin() {
+  if (checkPin(pinBuffer)) {
+    closePinModal();
+    revealEmails();
+  } else {
+    document.getElementById('pin-error').textContent = 'Code incorrect. Réessayez.';
+    updateDots(true);
+    setTimeout(function() { pinBuffer = ''; updateDots(false); document.getElementById('pin-error').textContent = ''; }, 800);
+  }
+}
+
+function closePinModal() {
+  document.removeEventListener('keydown', handleKeydown);
+  if (pinOverlay) { pinOverlay.remove(); pinOverlay = null; }
+}
+
+function revealEmails() {
+  document.querySelectorAll('.email-chip[data-e]').forEach(function(chip) {
+    chip.textContent = atob(chip.dataset.e);
+  });
+  document.getElementById('email-list').style.display = 'inline-flex';
+  document.getElementById('reveal-emails-btn').style.display = 'none';
+}
+
+function hideEmails() {
+  document.querySelectorAll('.email-chip[data-e]').forEach(function(chip) {
+    chip.textContent = '•••';
+  });
+  document.getElementById('email-list').style.display = 'none';
+  document.getElementById('reveal-emails-btn').style.display = 'inline-flex';
+}
+
+document.getElementById('reveal-emails-btn').addEventListener('click', openPinModal);
+document.getElementById('hide-emails-btn').addEventListener('click', hideEmails);
+
+updateStats();
+renderSections();
+</script>
+</body>
+</html>
