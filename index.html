@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>WeTrame – Traitement des Prépas</title>
+<title>WeTrame – Outils Coordinateurs</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
@@ -17,13 +17,13 @@
   --mono-bg:#f6f7f9; --info-bg:#eff6ff; --info-border:#bfdbfe; --info-text:#1d4ed8;
 }
 [data-theme="dark"] {
-  --bg:#0d1117; --surface:#161b22; --surface2:#1c2230; --border:#2d3748;
-  --text:#e2e8f0; --muted:#64748b; --accent:#60a5fa; --accent-light:#1e2d4a;
-  --green:#4ade80; --green-light:#052e16; --red:#f87171; --orange:#fb923c;
-  --purple:#a78bfa; --amber:#fbbf24;
-  --shadow:0 1px 3px rgba(0,0,0,.4),0 4px 12px rgba(0,0,0,.3);
-  --shadow-hover:0 2px 8px rgba(0,0,0,.5),0 8px 24px rgba(0,0,0,.4);
-  --mono-bg:#0d1117; --info-bg:#1a2540; --info-border:#1e3a5f; --info-text:#93c5fd;
+  --bg:#2c2f3a; --surface:#363b4a; --surface2:#3f4555; --border:#505670;
+  --text:#eceef5; --muted:#9ba3b8; --accent:#7fb3ff; --accent-light:#323c5a;
+  --green:#6ee79a; --green-light:#1e3d2e; --red:#fc9090; --orange:#fdaa6e;
+  --purple:#c4affe; --amber:#fdd068;
+  --shadow:0 1px 3px rgba(0,0,0,.15),0 4px 12px rgba(0,0,0,.1);
+  --shadow-hover:0 2px 8px rgba(0,0,0,.2),0 8px 24px rgba(0,0,0,.15);
+  --mono-bg:#2a2e3b; --info-bg:#2d3654; --info-border:#3d508a; --info-text:#a8c4ff;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -31,12 +31,12 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 
 /* HEADER */
 .header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;transition:background .3s,border-color .3s}
-.header-inner{max-width:900px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.header-inner{max-width:1200px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .logo-row{display:flex;align-items:center;gap:12px}
 .logo-icon{width:38px;height:38px;background:var(--accent);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:white}
 .logo-title{font-size:16px;font-weight:700;letter-spacing:-.2px}
 .logo-sub{font-size:11.5px;color:var(--muted);margin-top:1px}
-.header-right{display:flex;align-items:center;gap:10px}
+.header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 
 /* FILTER TABS */
 .filter-tabs{display:flex;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:3px;gap:2px;transition:background .3s,border-color .3s}
@@ -44,13 +44,22 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .filter-tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.1)}
 .filter-tab svg{width:13px;height:13px;flex-shrink:0}
 
+/* PAGE NAV */
+.page-nav{display:flex;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:3px;gap:2px;transition:background .3s,border-color .3s}
+.page-tab{padding:5px 14px;border:none;background:none;border-radius:6px;font-family:'Outfit',sans-serif;font-size:12.5px;font-weight:500;cursor:pointer;color:var(--muted);transition:all .2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.page-tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.page-tab svg{width:13px;height:13px;flex-shrink:0}
+
 /* DARK TOGGLE */
 .dark-toggle{width:34px;height:34px;border:1px solid var(--border);background:var(--surface);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .2s;flex-shrink:0}
 .dark-toggle:hover{background:var(--surface2);color:var(--text)}
 .dark-toggle svg{width:16px;height:16px}
 
+/* PAGES */
+.page{display:none}.page.active{display:block}
+
 /* MAIN */
-.main{max-width:900px;margin:0 auto;padding:20px 24px 52px;display:flex;flex-direction:column;gap:14px}
+.main{max-width:1200px;margin:0 auto;padding:20px 24px 52px;display:flex;flex-direction:column;gap:14px}
 
 /* CARD */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);transition:box-shadow .2s,background .3s,border-color .3s}
@@ -104,7 +113,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .task-row:hover{background:var(--surface2)}
 .task-row.ko-row{background:rgba(220,38,38,.06)}
 .task-row.ko-row:hover{background:rgba(220,38,38,.1)}
-
 .task-checkbox{width:16px;height:16px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s;background:var(--surface);cursor:pointer;position:relative}
 .task-checkbox.checked{background:var(--accent);border-color:var(--accent)}
 .task-checkbox.checked::after{content:'';display:block;width:4px;height:8px;border:1.5px solid white;border-top:none;border-left:none;transform:rotate(45deg) translateY(-1px)}
@@ -112,11 +120,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .task-checkbox.ko-state::before,.task-checkbox.ko-state::after{content:'';position:absolute;width:8px;height:1.5px;background:white;border-radius:1px}
 .task-checkbox.ko-state::before{transform:rotate(45deg)}
 .task-checkbox.ko-state::after{transform:rotate(-45deg)}
-
 .task-label{font-size:13px;color:var(--text);line-height:1.45;flex:1;transition:color .15s;cursor:pointer;font-weight:400}
 .task-label.done{color:var(--muted);text-decoration:line-through}
 .task-label.ko-label{color:var(--red)}
-
 .ko-badge{font-size:10px;font-weight:700;color:var(--red);background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.25);border-radius:4px;padding:1px 6px;flex-shrink:0;margin-top:2px}
 .ko-btn{flex-shrink:0;width:22px;height:22px;border:1px solid var(--border);background:var(--surface);cursor:pointer;border-radius:5px;display:flex;align-items:center;justify-content:center;color:var(--muted);opacity:0;transition:opacity .15s,background .15s,color .15s,border-color .15s;padding:0}
 .ko-btn svg{width:12px;height:12px}
@@ -136,6 +142,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .email-instructions strong{font-weight:600;margin-right:2px}
 .mono-wrap{position:relative;margin-bottom:14px}
 .mono-block{background:var(--mono-bg);border:1px solid var(--border);border-radius:8px;padding:12px 80px 12px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text);white-space:pre-wrap;line-height:1.65;transition:background .3s,border-color .3s,color .3s}
+.bullet-item{display:block;color:var(--accent);font-weight:600;letter-spacing:.1px;line-height:1.65}
 .copy-btn{position:absolute;top:8px;right:8px;padding:4px 10px;font-size:11.5px;font-weight:600;border:1px solid var(--border);background:var(--surface);color:var(--muted);border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s;font-family:'Outfit',sans-serif;white-space:nowrap}
 .copy-btn svg{width:12px;height:12px}
 .copy-btn:hover{background:var(--accent);color:white;border-color:var(--accent)}
@@ -179,13 +186,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 
 /* EMAIL SECURITY – PIN */
 .email-send-line{display:inline}
-
-/* Trigger button */
 .email-reveal-btn{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;font-size:12px;font-weight:600;font-family:'Outfit',sans-serif;background:var(--accent-light);color:var(--accent);border:1px solid var(--info-border);border-radius:99px;cursor:pointer;transition:all .2s;vertical-align:middle;margin:0 4px}
 .email-reveal-btn:hover{background:var(--accent);color:white;border-color:var(--accent)}
 .email-reveal-btn svg{flex-shrink:0}
-
-/* PIN modal overlay */
 .pin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);animation:overlayIn .15s ease}
 @keyframes overlayIn{from{opacity:0}to{opacity:1}}
 .pin-modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 32px;width:320px;box-shadow:0 20px 60px rgba(0,0,0,.2);animation:modalIn .2s cubic-bezier(.34,1.56,.64,1)}
@@ -195,14 +198,10 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .pin-modal-icon svg{width:18px;height:18px}
 .pin-modal-title{font-size:15px;font-weight:700;color:var(--text)}
 .pin-modal-sub{font-size:12.5px;color:var(--muted);margin-bottom:18px;line-height:1.5}
-
-/* PIN dots display */
 .pin-dots{display:flex;justify-content:center;gap:10px;margin-bottom:18px}
 .pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--border);background:var(--surface2);transition:all .15s}
 .pin-dot.filled{background:var(--accent);border-color:var(--accent)}
 .pin-dot.error{background:var(--red);border-color:var(--red)}
-
-/* PIN numpad */
 .pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
 .pin-key{padding:12px 8px;font-size:17px;font-weight:600;font-family:'Outfit',sans-serif;background:var(--surface2);border:1px solid var(--border);border-radius:9px;cursor:pointer;color:var(--text);transition:all .15s;text-align:center}
 .pin-key:hover{background:var(--accent);color:white;border-color:var(--accent);transform:scale(1.04)}
@@ -212,16 +211,61 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .pin-error-msg{font-size:12px;color:var(--red);text-align:center;min-height:16px;font-weight:500;margin-bottom:8px}
 .pin-cancel{width:100%;padding:9px;font-size:12.5px;font-weight:500;font-family:'Outfit',sans-serif;background:none;border:1px solid var(--border);border-radius:8px;cursor:pointer;color:var(--muted);transition:all .2s}
 .pin-cancel:hover{background:var(--surface2);color:var(--text)}
-
-/* Revealed emails */
 .email-chips{display:inline-flex;flex-wrap:wrap;align-items:center;gap:5px;vertical-align:middle;margin:0 2px;animation:fadeIn .25s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(-2px)}to{opacity:1;transform:translateY(0)}}
-.email-chip{display:inline-flex;align-items:center;padding:2px 9px;font-size:11.5px;font-weight:500;font-family:'IBM Plex Mono',monospace;background:var(--accent-light);border:1px solid var(--info-border);border-radius:5px;color:var(--accent);cursor:default;letter-spacing:-.2px}
+.email-chip{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;font-size:11.5px;font-weight:500;font-family:'IBM Plex Mono',monospace;background:var(--accent-light);border:1px solid var(--info-border);border-radius:5px;color:var(--accent);cursor:pointer;letter-spacing:-.2px;transition:all .15s;position:relative}
+.email-chip:not(.static):hover{background:var(--accent);color:white;border-color:var(--accent)}
+.email-chip.chip-copied{background:var(--green)!important;color:white!important;border-color:var(--green)!important}
 .email-chip.static{color:var(--muted);font-family:'Outfit',sans-serif;font-size:12px;background:var(--surface2);border-color:var(--border)}
-.email-hide-btn{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:11px;font-weight:600;font-family:'Outfit',sans-serif;background:none;color:var(--muted);border:1px solid var(--border);border-radius:99px;cursor:pointer;transition:all .2s}
+.email-hide-btn,.email-copy-all-btn{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;font-size:11px;font-weight:600;font-family:'Outfit',sans-serif;background:none;border:1px solid var(--border);border-radius:99px;cursor:pointer;transition:all .2s}
+.email-hide-btn{color:var(--muted)}
 .email-hide-btn:hover{color:var(--red);border-color:rgba(220,38,38,.3);background:rgba(220,38,38,.06)}
+.email-copy-all-btn{color:var(--accent);border-color:var(--info-border)}
+.email-copy-all-btn:hover{background:var(--accent);color:white;border-color:var(--accent)}
+.email-copy-all-btn.copied{background:var(--green);color:white;border-color:var(--green)}
 
-@media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,1fr)}.header-inner{flex-wrap:wrap}.info-cards-grid{grid-template-columns:1fr}}
+/* VERIF — STATUS TOGGLE */
+.status-card{padding:14px 16px}
+.status-card-title{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+/* VERIF — CATEGORY */
+.cat-card{padding:0;overflow:hidden}
+.cat-header{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px;transition:border-color .3s}
+.cat-badge{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 9px;border-radius:99px;border:1px solid}
+.cat-badge.common{color:var(--accent);background:var(--accent-light);border-color:var(--info-border)}
+.cat-badge.ok{color:var(--green);background:rgba(22,163,74,.08);border-color:rgba(22,163,74,.25)}
+.cat-badge.sav{color:var(--red);background:rgba(220,38,38,.06);border-color:rgba(220,38,38,.2)}
+.cat-body{padding:8px 10px;display:flex;flex-direction:column;gap:6px}
+/* VERIF — ORGANIGRAMME */
+.orga-card{padding:18px 20px;background:var(--info-bg)!important;border-color:var(--info-border)!important;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.orga-text{font-size:13px;color:var(--info-text);font-weight:500}
+.orga-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:var(--accent);color:white;border:none;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none}
+.orga-btn:hover{opacity:.88;transform:translateY(-1px)}
+.orga-btn svg{width:14px;height:14px}
+/* VERIF — COMPLETE BANNER */
+.verif-complete{background:var(--green-light);border:1px solid rgba(22,163,74,.2);border-radius:var(--radius);padding:12px 16px;display:none;align-items:center;gap:10px;font-size:13.5px;font-weight:600;color:var(--green)}
+.verif-complete.visible{display:flex}
+.verif-complete svg{width:18px;height:18px;flex-shrink:0}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .header-right{width:100%;justify-content:space-between}
+  .page-nav,.filter-tabs{flex:1}
+}
+@media(max-width:600px){
+  .header-inner{padding:10px 14px}
+  .logo-sub{display:none}
+  .page-tab,.filter-tab{padding:5px 8px;font-size:11.5px}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .info-cards-grid{grid-template-columns:1fr}
+  .main{padding:14px 14px 40px}
+  .orga-card{flex-direction:column;align-items:flex-start}
+  .orga-btn{width:100%;justify-content:center}
+  .email-chips{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:380px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .page-tab svg,.filter-tab svg{display:none}
+}
 </style>
 </head>
 <body>
@@ -233,11 +277,21 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
       <div>
-        <div class="logo-title">Traitement des Prépas</div>
-        <div class="logo-sub">Suivez chaque étape pour un traitement optimal</div>
+        <div class="logo-title" id="header-title">Traitement des Prépas</div>
+        <div class="logo-sub" id="header-sub">Suivez chaque étape pour un traitement optimal</div>
       </div>
     </div>
     <div class="header-right">
+      <div class="page-nav">
+        <button class="page-tab active" id="nav-prepas">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Traitement Prépas
+        </button>
+        <button class="page-tab" id="nav-verif">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Vérification Site
+        </button>
+      </div>
       <div class="filter-tabs">
         <button class="filter-tab active" id="tab-all">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
@@ -252,27 +306,27 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
           KO
         </button>
       </div>
-      <button class="dark-toggle" id="dark-btn" title="Basculer le thème">
-        <svg id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <button class="dark-toggle" id="dark-btn" title="Basculer thème">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
     </div>
   </div>
 </header>
 
+<!-- PAGE 1: TRAITEMENT DES PRÉPAS -->
+<div id="page-prepas" class="page active">
 <main class="main">
 
   <div class="info-banner">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
     <div class="info-banner-items">
-      <span><strong>Délais :</strong> 48h ouvrés après réception</span>
-      <span><strong>Imputation :</strong> traitement prepa</span>
+      <span><strong>Objectif :</strong> Traiter complètement chaque prépa reçue avant envoi</span>
     </div>
   </div>
 
   <div class="complete-banner" id="complete-banner">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-    Toutes les tâches sont complétées — excellent travail !
+    Toutes les tâches sont complétées ! Vous pouvez envoyer le mail de traitement.
   </div>
 
   <div class="stats-grid">
@@ -284,7 +338,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
       <div class="stat-value c-gray" id="stat-total">0</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">
+      <div class="stat-label" style="color:var(--green)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         Complétées
       </div>
@@ -318,38 +372,44 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
     <div class="progress-pct" id="progress-pct">0%</div>
   </div>
 
-  <div id="sections-container" style="display:flex;flex-direction:column;gap:12px"></div>
+  <div id="sections-main" style="display:flex;flex-direction:column;gap:12px"></div>
+
+  <div id="sections-mail"></div>
 
   <div class="card email-card">
     <div class="card-title">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      Instructions d'utilisation
+      Instructions d’utilisation
     </div>
     <div class="email-instructions">
       <p>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <span><strong>Quand utiliser :</strong> Lors du lancement d'un nouveau projet web</span>
+        <span><strong>Quand utiliser :</strong> Lors du lancement d’un nouveau projet web</span>
       </p>
       <p>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        <span class="email-send-line"><strong>Où envoyer :</strong> Gmail →
-            <button class="email-reveal-btn" id="reveal-emails-btn">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              Afficher les destinataires (4)
+        <span class="email-send-line"><strong>Où envoyer :</strong> Gmail &rarr;
+          <button class="email-reveal-btn" id="reveal-emails-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            Afficher les destinataires (4)
+          </button>
+          <span class="email-chips" id="email-list" style="display:none">
+            <span class="email-chip" data-a="NnQoNT0/Oy8aOz0/NDk/" data-b="dzk1Mj8oPzQ5P3Q8KA==">•••</span>
+            <span class="email-chip" data-a="N3Q4NS8uPywzNBo7PT80" data-b="OT93OTUyPyg/NDk/dDwo">•••</span>
+            <span class="email-chip" data-a="Nz8yPjN0KXQ5NTI/KD" data-b="80OT8aPTc7MzZ0OTU3">•••</span>
+            <span class="email-chip" data-a="OzYzdDV0OTUyPyg/ND" data-b="k/Gj03OzM2dDk1Nw==">•••</span>
+            <span class="email-chip static">CDP</span>
+            <span class="email-chip static">Assistante co (Maroc)</span>
+            <button class="email-copy-all-btn" id="copy-emails-btn">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copier tous
             </button>
-            <span class="email-chips" id="email-list" style="display:none">
-              <span class="email-chip" data-e="bC5yb2dlYXVAYWdlbmNlLWNvaGVyZW5jZS5mcg==">•••</span>
-              <span class="email-chip" data-e="bS5ib3V0ZXZpbkBhZ2VuY2UtY29oZXJlbmNlLmZy">•••</span>
-              <span class="email-chip" data-e="bWVoZGkucy5jb2hlcmVuY2VAZ21haWwuY29t">•••</span>
-              <span class="email-chip" data-e="YWxpLm8uY29oZXJlbmNlQGdtYWlsLmNvbQ==">•••</span>
-              <span class="email-chip static">CDP</span>
-              <span class="email-chip static">Assistante co (Maroc)</span>
-              <button class="email-hide-btn" id="hide-emails-btn">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22"/></svg>
-                Masquer
-              </button>
-            </span>
+            <button class="email-hide-btn" id="hide-emails-btn">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22"/></svg>
+              Masquer
+            </button>
           </span>
+        </span>
       </p>
       <p>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
@@ -359,7 +419,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 
     <div class="card-sub">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/></svg>
-      Sujet de l'email
+      Sujet de l’email
     </div>
     <div class="mono-wrap">
       <div class="mono-block" id="email-subject">Traitement prépa - [NOM DU COMPTE CLIENT]</div>
@@ -374,14 +434,21 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
       Contenu du message
     </div>
     <div class="mono-wrap">
-      <div class="mono-block" id="email-body">Bonjour,
+      <div class="mono-block" id="email-body-display" aria-hidden="true">Bonjour,
+
 Pack site web démo :
 
-[Options payantes supplémentaires]
-Frais techniques = [XXX]€
-[Rachat]
-SEO : Pack [xx] top [xx]
-Lien de la Fiche prépa en complément d'info</div>
+<span class="bullet-item">▸ [Options payantes supplémentaires]</span><span class="bullet-item">▸ Frais techniques = [XXX]€</span><span class="bullet-item">▸ [Rachat]</span><span class="bullet-item">▸ SEO : Pack [xx] top [xx]</span>
+Lien de la Fiche prépa en complément d’info</div>
+      <textarea class="mono-block" id="email-body" style="display:none;resize:none;height:0;overflow:hidden" readonly>Bonjour,
+
+Pack site web démo :
+
+▸ [Options payantes supplémentaires]
+▸ Frais techniques = [XXX]€
+▸ [Rachat]
+▸ SEO : Pack [xx] top [xx]
+Lien de la Fiche prépa en complément d’info</textarea>
       <button class="copy-btn" id="copy-body">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         Copier
@@ -398,372 +465,571 @@ Lien de la Fiche prépa en complément d'info</div>
       <div class="info-card info-card--blue">
         <div class="info-card-header">
           <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <span class="info-card-label">Délai</span>
+          <div class="info-card-label">Délai</div>
         </div>
-        <p class="info-card-text">Ce processus doit être terminé dans les <strong>48h ouvrés</strong> après réception de la prépa.</p>
+        <div class="info-card-text"><strong>48h ouvrées</strong> maximum pour traiter chaque prépa reçue.</div>
       </div>
       <div class="info-card info-card--red">
         <div class="info-card-header">
-          <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
-          <span class="info-card-label">Attention</span>
+          <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <div class="info-card-label">Attention</div>
         </div>
-        <p class="info-card-text">Si une mensualité SEO est vendue mais non ajoutée sur Salesforce, contactez le <strong>CHEF DE PROJET</strong> avant de continuer.</p>
+        <div class="info-card-text">Produit <strong>SEO</strong> vendu → contacter le CDP avant toute modification.</div>
       </div>
       <div class="info-card info-card--green">
         <div class="info-card-header">
-          <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-          <span class="info-card-label">Conseil</span>
+          <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="info-card-label">Conseil</div>
         </div>
-        <p class="info-card-text">Cochez les tâches <strong>au fur et à mesure</strong> pour garder une progression fiable et ne rien oublier.</p>
+        <div class="info-card-text">Cocher les tâches <strong>progressivement</strong> au fur et à mesure du traitement.</div>
       </div>
       <div class="info-card info-card--amber">
         <div class="info-card-header">
           <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
-          <span class="info-card-label">Imputation</span>
+          <div class="info-card-label">Imputation</div>
         </div>
-        <p class="info-card-text">Saisir obligatoirement <strong>« traitement prepa »</strong> comme libellé d'imputation dans le lot site web.</p>
+        <div class="info-card-text">Libeller l’imputation <strong>« traitement prepa »</strong> dans l’outil de suivi.</div>
       </div>
     </div>
   </div>
 
   <div class="footer">© 2026 Cohérence Maintenance — Outils de maintenance et développement</div>
 </main>
+</div>
+
+<!-- PAGE 2: VÉRIFICATION SITE -->
+<div id="page-verif" class="page">
+<main class="main" id="verif-main"></main>
+</div>
 
 <script>
-// ── SVG snippets reused in dynamic HTML ──
-const SVG = {
-  chevron: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>',
-  x:       '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
-  folder:  '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
-  alert:   '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
-  mail:    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
-  box:     '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>',
-  copy:    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
-  check:   '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
-};
+// ══════════════════════════════════════════════
+// THEME
+// ══════════════════════════════════════════════
+function toggleDark() {
+  var html = document.documentElement;
+  var isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+}
+document.getElementById('dark-btn').addEventListener('click', toggleDark);
 
-// ── Data ──
-const SECTIONS = [
-  { id:'prerequis', title:'Pré-requis', icon:'alert', color:'red', tasks:[
+// ══════════════════════════════════════════════
+// PAGE NAVIGATION
+// ══════════════════════════════════════════════
+function showPage(page) {
+  document.getElementById('page-prepas').classList.toggle('active', page === 'prepas');
+  document.getElementById('page-verif').classList.toggle('active', page === 'verif');
+  document.getElementById('nav-prepas').classList.toggle('active', page === 'prepas');
+  document.getElementById('nav-verif').classList.toggle('active', page === 'verif');
+  document.getElementById('header-title').textContent = page === 'prepas' ? 'Traitement des Prépas' : 'Vérification de Site';
+  document.getElementById('header-sub').textContent = page === 'prepas' ? 'Suivez chaque étape pour un traitement optimal' : 'Contrôle qualité avant livraison';
+  if (page === 'verif' && !verifInitialized) { initVerif(); verifInitialized = true; }
+}
+document.getElementById('nav-prepas').addEventListener('click', function() { showPage('prepas'); });
+document.getElementById('nav-verif').addEventListener('click', function() { showPage('verif'); });
+
+// ══════════════════════════════════════════════
+// PAGE 1 — TRAITEMENT DES PRÉPAS
+// ══════════════════════════════════════════════
+var SECTIONS = [
+  { id:'prerequis', title:'Pré-requis', icon:'check', color:'blue', tasks:[
     {id:'p1',  label:'Ajouter le lien du compte à la prépa'},
-    {id:'p2',  label:'Lier le Projet Site web (Projet en relation dans la fiche prépa)'},
-    {id:'p3',  label:"Vérifier que l'Opportunité est bien en statut 'Gagnée'"},
-    {id:'p4',  label:"Vérifier que le nom de la société dans la prépa correspond au Nom de l'entreprise"},
-    {id:'p5',  label:"Vérifier que l'adresse postale, le mail et le téléphone de l'entreprise sont bien présents dans la prépa"},
-    {id:'p6',  label:'Vérifier que le champ nom de domaine définitif est bien rempli dans la fiche prépa'},
-    {id:'p7',  label:'Vérifier que le lien de la démo (avec Token) est bien présent dans la prépa'},
-    {id:'p8',  label:"Vérifier que les codes couleurs hexadécimaux du site sont bien présents dans la prépa (en cas d'absence les prendre du logo)"},
-    {id:'p9',  label:"S'assurer que bloc entreprise fait partie des blocs de la page d'accueil (On ne crée pas une page entreprise séparée s'il s'agit d'une demo ; c'est une demande hors process)"},
-    {id:'p10', label:'Vérifier le nombre de TOP 10 est présent dans la prépa'},
-    {id:'p11', label:"Vérifier le TOP 10 (sur l'opportunité) et la comparer aux mots clés et localités mentionnés sur la prépa"},
-    {id:'p12', label:"S'il y a des options payantes mentionnées dans la prépa et non ajoutées aux produits sur Salesforce, continuer le traitement et mentionner tous les produits sur le mail récap"},
-    {id:'p13', label:"Si mensualité SEO vendue mais produit non ajouté sur Salesforce, faire appel à l'assistante commerciale du Maroc avant de continuer"},
-    {id:'p14', label:'Consulter le résumé de vente sur le compte client avant de solliciter les chefs de projet ou les commerciaux'},
-  ]},
-  { id:'projets', title:'Dans les projets', icon:'folder', color:'green', tasks:[
-    {id:'pr1',  label:'Ajouter le nombre de TOP 10 contrat dans le Projet Site web'},
-    {id:'pr2',  label:'Ajouter le nombre de TOP 10 contrat dans le Projet Maintenance SEO'},
-    {id:'pr3',  label:"Ajouter le chef de projet sur le Projet Site web s'il n'est pas présent"},
-    {id:'pr4',  label:"Ajouter le chef de projet sur le Projet Maintenance SEO s'il n'est pas présent"},
-    {id:'pr5',  label:'Si pas de SEO vendu > Cocher la case "Pas de SEO" dans le Projet Site web'},
-    {id:'pr6',  label:'Renommer le lot Site web en y ajoutant le nom du client'},
-    {id:'pr7',  label:'Renommer le lot Maintenance édito en y ajoutant le nom du client'},
-    {id:'pr8',  label:'Ajouter 2 dans le Nombre de jours vendus dans le lot SAV facturable'},
-    {id:'pr9',  label:'Renommer le lot SAV non facturable en y ajoutant le nom du client'},
-    {id:'pr10', label:"Renseigner le champ 'sous-type' du projet site web en précisant qu'il s'agit d'une démo"},
-    {id:'pr11', label:'Cocher la case "Prépa validée" dans la fiche prépa du projet'},
+    {id:'p2',  label:"Vérifier que l’Opportunité est bien en statut ‘Gagnée’"},
+    {id:'p3',  label:'Vérifier que le nom de la société dans la prépa correspond au Nom de l’entreprise'},
+    {id:'p4',  label:'Vérifier que l’adresse postale, le mail et le téléphone de l’entreprise sont bien présents dans la prépa'},
+    {id:'p5',  label:'Vérifier que le champ nom de domaine définitif est bien rempli dans la fiche prépa'},
+    {id:'p6',  label:'Vérifier que le lien de la démo (avec Token) est bien présent dans la prépa'},
+    {id:'p7',  label:'Vérifier que les codes couleurs hexadécimaux du site sont bien présents dans la prépa (en cas d’absence les prendre du logo)'},
+    {id:'p8',  label:"S’assurer que bloc entreprise fait partie des blocs de la page d’accueil (On ne crée pas une page entreprise séparée s’il s’agit d’une demo ; c’est une demande hors process)"},
+    {id:'p9',  label:'Vérifier le nombre de TOP 10 est présent dans la prépa'},
+    {id:'p10', label:'Vérifier le TOP 10 (sur l’opportunité) et la comparer aux mots clés et localités mentionnés sur la prépa'},
+    {id:'p11', label:'S’il y a des options payantes mentionnées dans la prépa et non ajoutées aux produits sur Salesforce, continuer le traitement et mentionner tous les produits sur le mail récap'},
+    {id:'p12', label:'Si mensualité SEO vendue mais produit non ajouté sur Salesforce, faire appel à l’assistante commerciale du Maroc avant de continuer'},
+    {id:'p13', label:'Consulter le résumé de vente sur le compte client avant de solliciter les chefs de projet ou les commerciaux'},
   ]},
   { id:'mail', title:'Dans le mail', icon:'mail', color:'purple', tasks:[
     {id:'m1', label:'Lister les produits présents sur la prépa dans le mail récap sans modifier les produits sur Salesforce'},
   ]},
+  { id:'projets', title:'Dans les projets', icon:'folder', color:'green', tasks:[
+    {id:'pr1',  label:'Ajouter le nombre de TOP 10 contrat dans le Projet Site web'},
+    {id:'pr2',  label:'Ajouter le nombre de TOP 10 contrat dans le Projet Maintenance SEO'},
+    {id:'pr3',  label:"Ajouter le chef de projet sur le Projet Site web s’il n’est pas présent"},
+    {id:'pr4',  label:"Ajouter le chef de projet sur le Projet Maintenance SEO s’il n’est pas présent"},
+    {id:'pr5',  label:'Si pas de SEO vendu > Cocher la case “Pas de SEO” dans le Projet Site web'},
+    {id:'pr6',  label:'Renommer le lot Site web en y ajoutant le nom du client'},
+    {id:'pr7',  label:'Renommer le lot Maintenance édito en y ajoutant le nom du client'},
+    {id:'pr8',  label:'Ajouter 2 dans le Nombre de jours vendus dans le lot SAV facturable'},
+    {id:'pr9',  label:'Renommer le lot SAV non facturable en y ajoutant le nom du client'},
+    {id:'pr10', label:"Renseigner le champ ‘sous-type’ du projet site web en précisant qu’il s’agit d’une démo"},
+    {id:'pr11', label:'Cocher la case “Prépa validée” dans la fiche prépa du projet'},
+  ]},
   { id:'lot', title:'Dans le lot', icon:'box', color:'blue', tasks:[
     {id:'l1', label:'Sélectionner le statut maquette (validée)'},
-    {id:'l2', label:'Mettre le statut du projet sur "en cours" (attention à ne pas confondre avec étape du site)'},
+    {id:'l2', label:'Mettre le statut du projet sur “en cours” (attention à ne pas confondre avec étape du site)'},
     {id:'l3', label:'Ajouter votre imputation dans le lot site web avec traitement prépa'},
   ]},
 ];
 
-// ── State ──
-const state = { tasks:{}, filter:'all', collapsed:{}, dark:false };
-SECTIONS.forEach(s => s.tasks.forEach(t => { state.tasks[t.id] = 'idle'; }));
+var state = { tasks:{}, filter:'all', collapsed:{} };
+SECTIONS.forEach(function(s){ s.tasks.forEach(function(t){ state.tasks[t.id] = 'idle'; }); });
 
-// ── Dark mode ──
-function toggleDark() {
-  state.dark = !state.dark;
-  document.documentElement.setAttribute('data-theme', state.dark ? 'dark' : 'light');
-  document.getElementById('icon-moon').style.display = state.dark ? 'none' : 'block';
-  document.getElementById('icon-sun').style.display  = state.dark ? 'block' : 'none';
+function updateStats() {
+  var total=0, done=0, ko=0;
+  SECTIONS.forEach(function(s){ s.tasks.forEach(function(t){
+    total++;
+    if(state.tasks[t.id]==='checked') done++;
+    if(state.tasks[t.id]==='ko') ko++;
+  }); });
+  var pending = total - done - ko;
+  var pct = total>0 ? Math.round(done/total*100) : 0;
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-done').textContent  = done;
+  document.getElementById('stat-ko').textContent    = ko;
+  document.getElementById('stat-pending').textContent = pending;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-count').textContent = done + ' / ' + total + ' tâches';
+  var banner = document.getElementById('complete-banner');
+  banner.classList.toggle('visible', done === total && total > 0 && ko === 0);
 }
 
-// ── Filter ──
-function setFilter(mode) {
-  state.filter = mode;
-  ['all','pending','ko'].forEach(m =>
-    document.getElementById('tab-' + m).classList.toggle('active', m === mode)
-  );
-  renderSections();
+function toggleTask(taskId) {
+  var cur = state.tasks[taskId];
+  state.tasks[taskId] = cur === 'idle' ? 'checked' : 'idle';
+  updateStats(); renderSections();
 }
-
-// ── Toggle task (checked / idle) ──
-function toggleTask(id) {
-  state.tasks[id] = state.tasks[id] === 'checked' ? 'idle' : 'checked';
-  updateStats();
-  renderSections();
-}
-
-// ── Toggle KO ──
-function toggleKo(id, e) {
+function toggleKo(taskId, e) {
   e.stopPropagation();
-  state.tasks[id] = state.tasks[id] === 'ko' ? 'idle' : 'ko';
-  updateStats();
-  renderSections();
+  state.tasks[taskId] = state.tasks[taskId] === 'ko' ? 'idle' : 'ko';
+  updateStats(); renderSections();
 }
-
-// ── Toggle section collapse ──
 function toggleSection(id) {
   state.collapsed[id] = !state.collapsed[id];
   renderSections();
 }
 
-// ── Copy to clipboard (with fallback for file:// protocol) ──
-function copyBlock(blockId, btn) {
-  const text = document.getElementById(blockId).textContent;
-  function showCopied() {
-    btn.innerHTML = SVG.check + ' Copié !';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.innerHTML = SVG.copy + ' Copier'; btn.classList.remove('copied'); }, 2000);
-  }
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(text).then(showCopied).catch(() => fallbackCopy(text, showCopied));
-  } else {
-    fallbackCopy(text, showCopied);
-  }
-}
-function fallbackCopy(text, cb) {
-  const ta = document.createElement('textarea');
-  ta.value = text;
-  ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
-  document.body.appendChild(ta);
-  ta.focus(); ta.select();
-  try { document.execCommand('copy'); cb(); } catch(e) {}
-  document.body.removeChild(ta);
+function setFilter(f) {
+  state.filter = f;
+  ['all','pending','ko'].forEach(function(x){
+    document.getElementById('tab-'+x).classList.toggle('active', x===f);
+  });
+  renderSections();
+  verifFilter = f;
+  if (verifInitialized) renderVerif();
 }
 
-// ── Stats ──
-function updateStats() {
-  const all   = SECTIONS.flatMap(s => s.tasks);
-  const total = all.length;
-  const done  = all.filter(t => state.tasks[t.id] === 'checked').length;
-  const ko    = all.filter(t => state.tasks[t.id] === 'ko').length;
-  const pend  = total - done - ko;
-  const pct   = total > 0 ? Math.round((done / total) * 100) : 0;
-  document.getElementById('stat-total').textContent   = total;
-  document.getElementById('stat-done').textContent    = done;
-  document.getElementById('stat-ko').textContent      = ko;
-  document.getElementById('stat-pending').textContent = pend;
-  document.getElementById('progress-count').textContent = done + ' / ' + total + ' tâches';
-  document.getElementById('progress-bar').style.width = pct + '%';
-  document.getElementById('progress-pct').textContent = pct + '%';
-  document.getElementById('tab-ko').style.fontWeight  = ko > 0 ? '700' : '500';
-  document.getElementById('complete-banner').classList.toggle('visible', done === total && total > 0 && ko === 0);
-}
+var SVG_ICONS = {
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+  mail:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
+  folder:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
+  box:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>',
+  ko:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+  chevron:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>',
+};
+var DOT = { blue:'dot-blue', green:'dot-green', purple:'dot-purple', orange:'dot-orange', red:'dot-red' };
 
-// ── Render sections ──
 function renderSections() {
-  const container = document.getElementById('sections-container');
-  container.innerHTML = '';
+  var mainC = document.getElementById('sections-main');
+  var mailC = document.getElementById('sections-mail');
+  mainC.innerHTML = ''; mailC.innerHTML = '';
 
   SECTIONS.forEach(function(section) {
+    var isMail = section.id === 'mail';
+    var container = isMail ? mailC : mainC;
     var visible = section.tasks;
     if (state.filter === 'pending') visible = section.tasks.filter(function(t){ return state.tasks[t.id] === 'idle'; });
     if (state.filter === 'ko')      visible = section.tasks.filter(function(t){ return state.tasks[t.id] === 'ko'; });
-    if (visible.length === 0 && state.filter !== 'all') return;
+    if (state.filter !== 'all' && visible.length === 0) return;
 
-    var done  = section.tasks.filter(function(t){ return state.tasks[t.id] === 'checked'; }).length;
-    var ko    = section.tasks.filter(function(t){ return state.tasks[t.id] === 'ko'; }).length;
-    var total = section.tasks.length;
-    var pct   = total > 0 ? Math.round((done / total) * 100) : 0;
-    var open  = !state.collapsed[section.id];
+    var done = section.tasks.filter(function(t){ return state.tasks[t.id]==='checked'; }).length;
+    var pct  = section.tasks.length > 0 ? Math.round(done/section.tasks.length*100) : 0;
+    var isOpen = !state.collapsed[section.id];
 
-    var koBadge = ko > 0
-      ? '<span style="font-size:10.5px;font-weight:700;color:var(--red);background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.25);border-radius:99px;padding:1px 8px;display:inline-flex;align-items:center;gap:4px;">' + SVG.x + ko + ' KO</span>'
-      : '';
-
-    var taskRows = visible.map(function(task) {
+    var div = document.createElement('div');
+    div.className = 'card section-card';
+    var headerHTML =
+      '<button class="section-header" data-section="'+section.id+'">' +
+        '<div class="section-header-left">' +
+          '<span class="section-chevron'+(isOpen?' open':'')+'">'+SVG_ICONS.chevron+'</span>' +
+          '<span class="section-title"><span class="color-dot '+DOT[section.color]+'"></span>'+SVG_ICONS[section.icon]+section.title+'</span>' +
+        '</div>' +
+        '<div class="section-header-right">' +
+          '<span class="section-count">'+done+'/'+section.tasks.length+'</span>' +
+          '<span class="section-pct">'+pct+'%</span>' +
+        '</div>' +
+      '</button>' +
+      '<div class="section-body'+(isOpen?'':' hidden')+'">';
+    var tasksHTML = '';
+    visible.forEach(function(task) {
       var st = state.tasks[task.id];
-      var isChecked = st === 'checked';
-      var isKo = st === 'ko';
-      var cbClass = isChecked ? 'checked' : isKo ? 'ko-state' : '';
-      var lblClass = isChecked ? 'done' : isKo ? 'ko-label' : '';
-      return '<div class="task-row' + (isKo ? ' ko-row' : '') + '">'
-        + '<div class="task-checkbox ' + cbClass + '" data-task="' + task.id + '" data-action="toggle"></div>'
-        + '<span class="task-label ' + lblClass + '" data-task="' + task.id + '" data-action="toggle">' + task.label + '</span>'
-        + (isKo ? '<span class="ko-badge">KO</span>' : '')
-        + '<button class="ko-btn" data-task="' + task.id + '" data-action="ko" title="' + (isKo ? 'Annuler KO' : 'Marquer KO') + '">' + SVG.x + '</button>'
-        + '</div>';
-    }).join('');
+      var isOk = st==='checked', isKo = st==='ko';
+      tasksHTML +=
+        '<div class="task-row'+(isKo?' ko-row':'')+'">' +
+          '<div class="task-checkbox'+(isOk?' checked':isKo?' ko-state':'')+'" data-action="toggle" data-task="'+task.id+'"></div>' +
+          '<span class="task-label'+(isOk?' done':isKo?' ko-label':'')+'" data-action="toggle" data-task="'+task.id+'">'+task.label+'</span>' +
+          (isKo?'<span class="ko-badge">KO</span>':'')+
+          '<button class="ko-btn'+(isKo?' active':'')+'" data-action="ko" data-task="'+task.id+'" title="Marquer KO">'+SVG_ICONS.ko+'</button>' +
+        '</div>';
+    });
+    div.innerHTML = headerHTML + tasksHTML + '</div>';
 
-    var card = document.createElement('div');
-    card.className = 'card section-card';
-    card.innerHTML = '<button class="section-header" data-section="' + section.id + '">'
-      + '<div class="section-header-left">'
-      + '<span class="section-chevron' + (open ? ' open' : '') + '">' + SVG.chevron + '</span>'
-      + '<span class="color-dot dot-' + section.color + '"></span>'
-      + '<span class="section-title">' + SVG[section.icon] + section.title + '</span>'
-      + koBadge
-      + '</div>'
-      + '<div class="section-header-right">'
-      + '<span class="section-count">' + done + '/' + total + '</span>'
-      + '<span class="section-pct">' + pct + '%</span>'
-      + '</div>'
-      + '</button>'
-      + '<div class="section-body' + (open ? '' : ' hidden') + '" id="body-' + section.id + '">'
-      + taskRows
-      + '</div>';
+    div.querySelectorAll('[data-action="toggle"]').forEach(function(el) {
+      el.addEventListener('click', function() { toggleTask(this.dataset.task); });
+    });
+    div.querySelectorAll('[data-action="ko"]').forEach(function(el) {
+      el.addEventListener('click', function(e) { toggleKo(this.dataset.task, e); });
+    });
+    div.querySelector('[data-section]').addEventListener('click', function() { toggleSection(this.dataset.section); });
 
-    container.appendChild(card);
-  });
-
-  // Attach events via delegation on the container
-  container.querySelectorAll('[data-action="toggle"]').forEach(function(el) {
-    el.addEventListener('click', function() { toggleTask(this.dataset.task); });
-  });
-  container.querySelectorAll('[data-action="ko"]').forEach(function(el) {
-    el.addEventListener('click', function(e) { toggleKo(this.dataset.task, e); });
-  });
-  container.querySelectorAll('[data-section]').forEach(function(el) {
-    el.addEventListener('click', function() { toggleSection(this.dataset.section); });
+    container.appendChild(div);
   });
 }
 
-// ── Boot ──
-document.getElementById('tab-all').addEventListener('click', function(){ setFilter('all'); });
-document.getElementById('tab-pending').addEventListener('click', function(){ setFilter('pending'); });
-document.getElementById('tab-ko').addEventListener('click', function(){ setFilter('ko'); });
-document.getElementById('dark-btn').addEventListener('click', toggleDark);
-document.getElementById('copy-subject').addEventListener('click', function(){ copyBlock('email-subject', this); });
-document.getElementById('copy-body').addEventListener('click', function(){ copyBlock('email-body', this); });
+// ══ Clipboard ══
+function fallbackCopy(text, cb) {
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); if(cb) cb(); } catch(e){}
+  document.body.removeChild(ta);
+}
+function copyBlock(id, btn) {
+  var el = document.getElementById(id);
+  var text = el.tagName === 'TEXTAREA' ? el.value : el.innerText;
+  var origHTML = btn.innerHTML;
+  var doneHTML = btn.innerHTML.replace(/Copier.*/,'Copié !');
+  function showDone() {
+    btn.innerHTML = doneHTML; btn.classList.add('copied');
+    setTimeout(function(){ btn.innerHTML = origHTML; btn.classList.remove('copied'); }, 2000);
+  }
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(showDone).catch(function(){ fallbackCopy(text, showDone); });
+  } else { fallbackCopy(text, showDone); }
+}
 
-// ── Email PIN protection ──
-// PIN stored as SHA-256-like simple hash (XOR obfuscation) — not in plaintext
-// PIN is: 1234  →  stored obfuscated
-const PIN_HASH = btoa('1234'.split('').map(function(c,i){return String.fromCharCode(c.charCodeAt(0)^(37+i));}).join(''));
-
-var pinBuffer = '';
-var pinOverlay = null;
-
+// ══ Email PIN ══
+var PIN_HASH = btoa('1234'.split('').map(function(c,i){return String.fromCharCode(c.charCodeAt(0)^(37+i));}).join(''));
+var pinBuffer='', pinOverlay=null;
 function checkPin(input) {
   var h = btoa(input.split('').map(function(c,i){return String.fromCharCode(c.charCodeAt(0)^(37+i));}).join(''));
   return h === PIN_HASH;
 }
-
 function openPinModal() {
-  pinBuffer = '';
+  pinBuffer='';
   pinOverlay = document.createElement('div');
-  pinOverlay.className = 'pin-overlay';
-  pinOverlay.id = 'pin-overlay';
+  pinOverlay.className = 'pin-overlay'; pinOverlay.id = 'pin-overlay';
   pinOverlay.innerHTML =
-    '<div class="pin-modal">' +
-      '<div class="pin-modal-header">' +
-        '<div class="pin-modal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>' +
-        '<div class="pin-modal-title">Accès protégé</div>' +
-      '</div>' +
-      '<div class="pin-modal-sub">Saisissez le code PIN pour afficher les adresses email des destinataires.</div>' +
-      '<div class="pin-dots" id="pin-dots">' +
-        '<div class="pin-dot" id="d0"></div>' +
-        '<div class="pin-dot" id="d1"></div>' +
-        '<div class="pin-dot" id="d2"></div>' +
-        '<div class="pin-dot" id="d3"></div>' +
-      '</div>' +
-      '<div class="pin-pad">' +
-        [1,2,3,4,5,6,7,8,9].map(function(n){
-          return '<button class="pin-key" data-n="'+n+'">'+n+'</button>';
-        }).join('') +
-        '<button class="pin-key" style="visibility:hidden"></button>' +
-        '<button class="pin-key" data-n="0">0</button>' +
-        '<button class="pin-key del" data-del="1">⌫</button>' +
-      '</div>' +
-      '<div class="pin-error-msg" id="pin-error"></div>' +
-      '<button class="pin-cancel" id="pin-cancel">Annuler</button>' +
+    '<div class="pin-modal">'+
+      '<div class="pin-modal-header">'+
+        '<div class="pin-modal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>'+
+        '<div class="pin-modal-title">Accès protégé</div>'+
+      '</div>'+
+      '<div class="pin-modal-sub">Saisissez le code PIN pour afficher les adresses email des destinataires.</div>'+
+      '<div class="pin-dots" id="pin-dots">'+
+        '<div class="pin-dot" id="d0"></div><div class="pin-dot" id="d1"></div>'+
+        '<div class="pin-dot" id="d2"></div><div class="pin-dot" id="d3"></div>'+
+      '</div>'+
+      '<div class="pin-pad">'+
+        [1,2,3,4,5,6,7,8,9].map(function(n){ return '<button class="pin-key" data-n="'+n+'">'+n+'</button>'; }).join('')+
+        '<button class="pin-key" style="visibility:hidden"></button>'+
+        '<button class="pin-key" data-n="0">0</button>'+
+        '<button class="pin-key del" data-del="1">⌫</button>'+
+      '</div>'+
+      '<div class="pin-error-msg" id="pin-error"></div>'+
+      '<button class="pin-cancel" id="pin-cancel">Annuler</button>'+
     '</div>';
   document.body.appendChild(pinOverlay);
-
-  pinOverlay.querySelectorAll('.pin-key[data-n]').forEach(function(btn) {
-    btn.addEventListener('click', function() { pressKey(this.dataset.n); });
+  pinOverlay.querySelectorAll('.pin-key[data-n]').forEach(function(btn){
+    btn.addEventListener('click', function(){ pressKey(this.dataset.n); });
   });
   pinOverlay.querySelector('[data-del]').addEventListener('click', deleteKey);
   document.getElementById('pin-cancel').addEventListener('click', closePinModal);
-  pinOverlay.addEventListener('click', function(e) { if (e.target === pinOverlay) closePinModal(); });
+  pinOverlay.addEventListener('click', function(e){ if(e.target===pinOverlay) closePinModal(); });
   document.addEventListener('keydown', handleKeydown);
 }
-
 function handleKeydown(e) {
-  if (!pinOverlay) return;
-  if (e.key >= '0' && e.key <= '9') pressKey(e.key);
-  if (e.key === 'Backspace') deleteKey();
-  if (e.key === 'Escape') closePinModal();
+  if(!pinOverlay) return;
+  if(e.key>='0'&&e.key<='9') pressKey(e.key);
+  if(e.key==='Backspace') deleteKey();
+  if(e.key==='Escape') closePinModal();
 }
-
 function pressKey(n) {
-  if (pinBuffer.length >= 4) return;
-  pinBuffer += n;
-  updateDots();
-  if (pinBuffer.length === 4) {
-    setTimeout(validatePin, 120);
-  }
+  if(pinBuffer.length>=4) return;
+  pinBuffer+=n; updateDots();
+  if(pinBuffer.length===4) setTimeout(validatePin, 120);
 }
-
 function deleteKey() {
-  pinBuffer = pinBuffer.slice(0, -1);
-  document.getElementById('pin-error').textContent = '';
+  pinBuffer=pinBuffer.slice(0,-1);
+  document.getElementById('pin-error').textContent='';
   updateDots(false);
 }
-
 function updateDots(error) {
-  for (var i = 0; i < 4; i++) {
-    var dot = document.getElementById('d' + i);
-    dot.classList.toggle('filled', i < pinBuffer.length);
-    dot.classList.toggle('error', error === true);
+  for(var i=0;i<4;i++){
+    var d=document.getElementById('d'+i);
+    d.classList.toggle('filled',i<pinBuffer.length);
+    d.classList.toggle('error',error===true);
   }
 }
-
 function validatePin() {
-  if (checkPin(pinBuffer)) {
-    closePinModal();
-    revealEmails();
-  } else {
-    document.getElementById('pin-error').textContent = 'Code incorrect. Réessayez.';
+  if(checkPin(pinBuffer)){ closePinModal(); revealEmails(); }
+  else {
+    document.getElementById('pin-error').textContent='Code incorrect. Réessayez.';
     updateDots(true);
-    setTimeout(function() { pinBuffer = ''; updateDots(false); document.getElementById('pin-error').textContent = ''; }, 800);
+    setTimeout(function(){ pinBuffer=''; updateDots(false); document.getElementById('pin-error').textContent=''; }, 800);
   }
 }
-
 function closePinModal() {
   document.removeEventListener('keydown', handleKeydown);
-  if (pinOverlay) { pinOverlay.remove(); pinOverlay = null; }
+  if(pinOverlay){ pinOverlay.remove(); pinOverlay=null; }
 }
-
+function decodeChip(a,b) {
+  var raw = atob(a+b);
+  return raw.split('').map(function(ch){ return String.fromCharCode(ch.charCodeAt(0)^0x5A); }).join('');
+}
 function revealEmails() {
-  document.querySelectorAll('.email-chip[data-e]').forEach(function(chip) {
-    chip.textContent = atob(chip.dataset.e);
+  var svgCopy = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5;flex-shrink:0"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  document.querySelectorAll('.email-chip[data-a]').forEach(function(chip) {
+    var email = decodeChip(chip.dataset.a, chip.dataset.b);
+    chip.innerHTML = email + svgCopy;
+    chip.title = 'Cliquer pour copier';
+    chip.addEventListener('click', function(){ copyChip(this, email); });
   });
   document.getElementById('email-list').style.display = 'inline-flex';
   document.getElementById('reveal-emails-btn').style.display = 'none';
+  document.getElementById('copy-emails-btn').addEventListener('click', copyAllEmails);
 }
-
+function copyChip(chip, email) {
+  var svgCopy = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.5;flex-shrink:0"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  var svgCheck = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="20 6 9 17 4 12"/></svg>';
+  function showCopied() {
+    chip.innerHTML = email + svgCheck; chip.classList.add('chip-copied');
+    setTimeout(function(){ chip.innerHTML = email + svgCopy; chip.classList.remove('chip-copied'); }, 1800);
+  }
+  if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(email).then(showCopied).catch(function(){ fallbackCopy(email,showCopied); }); }
+  else { fallbackCopy(email, showCopied); }
+}
+function copyAllEmails() {
+  var emails=[];
+  document.querySelectorAll('.email-chip[data-a]').forEach(function(chip){ emails.push(chip.textContent.replace(/[^\w@.\-]/g,'').trim()); });
+  var text=emails.join('; ');
+  var btn=document.getElementById('copy-emails-btn');
+  var svgC='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  var svgK='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  function showCopied(){ btn.innerHTML=svgK+' Copié !'; btn.classList.add('copied'); setTimeout(function(){ btn.innerHTML=svgC+' Copier tous'; btn.classList.remove('copied'); },2000); }
+  if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(text).then(showCopied).catch(function(){ fallbackCopy(text,showCopied); }); }
+  else { fallbackCopy(text,showCopied); }
+}
 function hideEmails() {
-  document.querySelectorAll('.email-chip[data-e]').forEach(function(chip) {
-    chip.textContent = '•••';
+  document.querySelectorAll('.email-chip[data-a]').forEach(function(chip){
+    chip.innerHTML='•••'; chip.classList.remove('chip-copied'); chip.title='';
+    chip.replaceWith(chip.cloneNode(true));
   });
-  document.getElementById('email-list').style.display = 'none';
-  document.getElementById('reveal-emails-btn').style.display = 'inline-flex';
+  document.getElementById('email-list').style.display='none';
+  document.getElementById('reveal-emails-btn').style.display='inline-flex';
 }
-
 document.getElementById('reveal-emails-btn').addEventListener('click', openPinModal);
 document.getElementById('hide-emails-btn').addEventListener('click', hideEmails);
+document.getElementById('copy-subject').addEventListener('click', function(){ copyBlock('email-subject', this); });
+document.getElementById('copy-body').addEventListener('click', function(){ copyBlock('email-body', this); });
+document.getElementById('tab-all').addEventListener('click', function(){ setFilter('all'); });
+document.getElementById('tab-pending').addEventListener('click', function(){ setFilter('pending'); });
+document.getElementById('tab-ko').addEventListener('click', function(){ setFilter('ko'); });
+updateStats(); renderSections();
 
-updateStats();
-renderSections();
+// ══════════════════════════════════════════════
+// PAGE 2 — VÉRIFICATION SITE
+// ══════════════════════════════════════════════
+var VERIF_CATEGORIES = [
+  { id:'verifications', label:'Vérifications communes', badge:'common', sections:[
+    { id:'preparation', title:'Préparation', tasks:[
+      { id:'prep-1', label:"S’assurer qu’il s’agit d’un site demo ou d’un site maquette" },
+      { id:'prep-2', label:"Passer le site sur verif CDP en cours" },
+      { id:'prep-3', label:"Ouvrir la maquette/démo + la prépa + site créé + ancien site" },
+      { id:'prep-4', label:"Faire une lecture complète de la prépa et se rassurer que tous les éléments de la prépa existent sur le site" },
+      { id:'prep-5', label:"Lire l’historique de tous les échanges sur le lot site web" },
+    ]},
+    { id:'design', title:'Design & Interface', tasks:[
+      { id:'design-1', label:"Vérifier que le site correspond à la maquette/démo" },
+      { id:'design-2', label:"Vérifier le responsive design (1440px, 1280px, 1024px, tablette, mobile) / Ne pas oublier de vérifier les pages des mentions légales, politique de confidentialité et CGV (pour les sites e-commerce)" },
+    ]},
+    { id:'contenu', title:'Contenu', tasks:[
+      { id:'content-1', label:"Vérifier que les prestations, localité et mot clé primordiale sont respectés" },
+      { id:'content-2', label:"Vérifier que les options payantes sont respectées" },
+      { id:'content-3', label:"Vérifier que la mention de l’entreprise et informations de l’entreprise sont respectées" },
+    ]},
+    { id:'fonctionnalites', title:'Fonctionnalités', tasks:[
+      { id:'func-1', label:"Vérifier que tous les CTA fonctionnent" },
+      { id:'func-2', label:"Vérifier le bon fonctionnement des formulaires et l’adresse mail d’atterrissage" },
+    ]},
+    { id:'livraison-common', title:'Livraison', tasks:[
+      { id:'liv-1', label:"Créer les identifiants WP client" },
+      { id:'liv-2', label:"Ajouter les identifiants client dans le lot" },
+      { id:'liv-3', label:"Cocher les cases vérif CDP + correction binôme" },
+      { id:'liv-4', label:"Passer le statut du site vers à livrer" },
+      { id:'liv-5', label:"Ajouter l’URL du site au compte client" },
+      { id:'liv-6', label:"Ajouter le commentaire de livraison sur le compte en mentionnant le chef de projet, le commercial, l’assistante commerciale et l’agence (Revoir l’organigramme) en mettant le guide wordpress en PJ" },
+    ]},
+  ]},
+  { id:'actions-ok', label:'Actions pour site OK', badge:'ok', conditional:'ok', sections:[
+    { id:'livraison-ok', title:'Livraison', tasks:[
+      { id:'ok-1', label:"Ajouter les identifiants client dans le lot" },
+      { id:'ok-2', label:"Cocher les cases vérif CDP + correction binôme" },
+      { id:'ok-3', label:"Passer le statut du site vers à livrer" },
+      { id:'ok-4', label:"Ajouter l’URL du site au compte client" },
+      { id:'ok-5', label:"Ajouter le commentaire de livraison sur le compte en mentionnant le chef de projet, le commercial, l’assistante commerciale et l’agence (Revoir l’organigramme) en mettant le guide wordpress en PJ" },
+    ]},
+  ]},
+  { id:'actions-sav', label:'Actions pour SAV', badge:'sav', conditional:'sav', sections:[
+    { id:'sav', title:'SAV', tasks:[
+      { id:'sav-1', label:"Ajouter une nouvelle demande de SAV non facturable, et l’attribuer à TMA Qualité" },
+      { id:'sav-2', label:"Ajouter un commentaire sur le lot Site web en mentionnant l’équipe et les responsables d’équipe ainsi que le lien de la requête" },
+      { id:'sav-3', label:"Cocher la case vérification CDP" },
+      { id:'sav-4', label:"Mettre le statut du site sur SAV avant livraison" },
+    ]},
+  ]},
+];
+
+var verifState = {}, verifCollapsed = {}, verifSiteStatus = 'ok', verifFilter = 'all', verifInitialized = false;
+VERIF_CATEGORIES.forEach(function(cat){ cat.sections.forEach(function(sec){ sec.tasks.forEach(function(t){ verifState[t.id]=null; }); }); });
+
+function verifStats() {
+  var all=[];
+  VERIF_CATEGORIES.forEach(function(cat){
+    if(cat.conditional==='ok'  && verifSiteStatus!=='ok')  return;
+    if(cat.conditional==='sav' && verifSiteStatus!=='sav') return;
+    cat.sections.forEach(function(sec){ all=all.concat(sec.tasks); });
+  });
+  var total=all.length;
+  var ok=all.filter(function(t){ return verifState[t.id]==='ok'; }).length;
+  var ko=all.filter(function(t){ return verifState[t.id]==='ko'; }).length;
+  return {total:total,ok:ok,ko:ko,pending:total-ok-ko,pct:total>0?Math.round(ok/total*100):0};
+}
+function setVerifTask(taskId,status) { verifState[taskId]=verifState[taskId]===status?null:status; renderVerif(); }
+function toggleVerifSection(id) { verifCollapsed[id]=!verifCollapsed[id]; renderVerif(); }
+function setVerifStatus(status) { verifSiteStatus=status; renderVerif(); }
+
+function renderVerif() {
+  var main = document.getElementById('verif-main');
+  var s = verifStats();
+  var allDone = s.ok+s.ko===s.total&&s.total>0;
+  var SVG_CHK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+  var html = '';
+
+  // Info banner
+  html += '<div class="info-banner"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><div class="info-banner-items"><span>Vérifier chaque point avant de valider ou passer en SAV</span></div></div>';
+  // Complete banner
+  html += '<div class="verif-complete'+(allDone?' visible':'')+'">'+SVG_CHK+' Toutes les vérifications sont complétées !</div>';
+  // Stats
+  html += '<div class="stats-grid">';
+  html += '<div class="stat-card"><div class="stat-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Total</div><div class="stat-value c-gray">'+s.total+'</div></div>';
+  html += '<div class="stat-card"><div class="stat-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Validées</div><div class="stat-value c-green">'+s.ok+'</div></div>';
+  html += '<div class="stat-card"><div class="stat-label" style="color:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>KO</div><div class="stat-value c-red">'+s.ko+'</div></div>';
+  html += '<div class="stat-card"><div class="stat-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>En attente</div><div class="stat-value c-orange">'+s.pending+'</div></div>';
+  html += '</div>';
+  // Progress
+  html += '<div class="card progress-card"><div class="progress-header"><span class="progress-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Progression globale</span><span class="progress-count">'+s.ok+' / '+s.total+' tâches</span></div><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:'+s.pct+'%"></div></div><div class="progress-pct">'+s.pct+'%</div></div>';
+  // Status toggle — same pill style as filter-tabs
+  html += '<div class="card status-card">';
+  html += '<div class="status-card-title">Statut du site après vérification</div>';
+  html += '<div class="filter-tabs" style="width:fit-content">';
+  html += '<button class="filter-tab'+(verifSiteStatus==='ok'?' active':'')+'" data-vstatus="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--green)"><polyline points="20 6 9 17 4 12"/></svg>Site OK — Prêt à livrer</button>';
+  html += '<button class="filter-tab'+(verifSiteStatus==='sav'?' active':'')+'" data-vstatus="sav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--red)"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>SAV requis</button>';
+  html += '</div></div>';
+
+  // Categories & sections
+  VERIF_CATEGORIES.forEach(function(cat) {
+    if(cat.conditional==='ok'&&verifSiteStatus!=='ok') return;
+    if(cat.conditional==='sav'&&verifSiteStatus!=='sav') return;
+    var dotClass = cat.badge==='ok'?'dot-green':cat.badge==='sav'?'dot-red':'dot-blue';
+    cat.sections.forEach(function(sec) {
+      var visibleTasks = sec.tasks;
+      if(verifFilter==='pending') visibleTasks=sec.tasks.filter(function(t){ return verifState[t.id]===null; });
+      if(verifFilter==='ko')      visibleTasks=sec.tasks.filter(function(t){ return verifState[t.id]==='ko'; });
+      if(verifFilter!=='all'&&visibleTasks.length===0) return;
+      var doneCount=sec.tasks.filter(function(t){ return verifState[t.id]!==null; }).length;
+      var pct=sec.tasks.length>0?Math.round(doneCount/sec.tasks.length*100):0;
+      var isOpen=!verifCollapsed[sec.id];
+      html += '<div class="card section-card">';
+      html += '<button class="section-header" data-vsec="'+sec.id+'">';
+      html += '<div class="section-header-left"><span class="section-chevron'+(isOpen?' open':'')+'">'+SVG_ICONS.chevron+'</span><span class="section-title"><span class="color-dot '+dotClass+'"></span>'+sec.title+'</span>';
+      html += '<span style="font-size:11px;color:var(--muted)">'+cat.label+'</span></div>';
+      html += '<div class="section-header-right"><span class="section-count">'+doneCount+'/'+sec.tasks.length+'</span><span class="section-pct">'+pct+'%</span></div>';
+      html += '</button>';
+      html += '<div class="section-body'+(isOpen?'':' hidden')+'">';
+      visibleTasks.forEach(function(task) {
+        var st=verifState[task.id];
+        var isOk=st==='ok', isKo=st==='ko';
+        html += '<div class="task-row'+(isKo?' ko-row':'')+'">';
+        html += '<div class="task-checkbox'+(isOk?' checked':isKo?' ko-state':'')+'" data-vtask="'+task.id+'" data-vval="ok"></div>';
+        html += '<span class="task-label'+(isOk?' done':isKo?' ko-label':'')+'" data-vtask="'+task.id+'" data-vval="ok">'+task.label+'</span>';
+        if(isKo) html += '<span class="ko-badge">KO</span>';
+        html += '<button class="ko-btn'+(isKo?' active':'')+'" data-vtask="'+task.id+'" data-vval="ko" title="Marquer KO">'+SVG_ICONS.ko+'</button>';
+        html += '</div>';
+      });
+      html += '</div></div>';
+    });
+  });
+
+  // Organigramme
+  html += '<div class="card orga-card"><div><div class="orga-text" style="font-weight:700;margin-bottom:3px">Organigramme équipe</div><div class="orga-text" style="font-size:12px;opacity:.8">Retrouver les contacts et la hiérarchie</div></div><a class="orga-btn" href="https://www.canva.com/design/DAGskIOHERg/DZjfHrflj8TmU8BZ7iL3OA/edit" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Ouvrir l’organigramme</a></div>';
+
+  main.innerHTML = html;
+
+  // Commentaire de livraison (built with DOM to avoid encoding issues)
+  var livraisonCard = document.createElement('div');
+  livraisonCard.className = 'card email-card';
+  livraisonCard.innerHTML = [
+    '<div class="card-title">',
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+      'Commentaire de livraison',
+    '</div>',
+    '<div class="card-sub">',
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+      'Contenu du message',
+    '</div>',
+    '<div class="mono-wrap">',
+      '<div class="mono-block" id="verif-msg-display"></div>',
+      '<textarea class="mono-block" id="verif-msg-body" style="display:none;resize:none;height:0;overflow:hidden" readonly></textarea>',
+      '<button class="copy-btn" id="copy-verif-msg">',
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+        'Copier',
+      '</button>',
+    '</div>'
+  ].join('');
+  var plainMsg = 'Bonjour, \uD83D\uDC4B\n\n@Propri\u00E9taire_du_compte @Chef_de_projet @Coordinateur @Assistante_Commerciale @Agence\n\nSite produit et pr\u00EAt pour livraison :\n\n\u2022 ID : \n\u2022 MDP : \n\u2022 URL :\n\u2022 Mail :\n\nGuide WP en PJ et lien mis \u00E0 jour';
+  livraisonCard.querySelector('#verif-msg-body').value = plainMsg;
+  var displayDiv = livraisonCard.querySelector('#verif-msg-display');
+  displayDiv.innerHTML =
+    'Bonjour, \uD83D\uDC4B\n\n' +
+    '@Propri\u00E9taire_du_compte @Chef_de_projet @Coordinateur @Assistante_Commerciale @Agence\n\n' +
+    'Site produit et pr\u00EAt pour livraison :\n\n' +
+    '<span class="bullet-item">\u2022 ID : </span>' +
+    '<span class="bullet-item">\u2022 MDP : </span>' +
+    '<span class="bullet-item">\u2022 URL :</span>' +
+    '<span class="bullet-item">\u2022 Mail :</span>' +
+    '\nGuide WP en PJ et lien mis \u00E0 jour';
+  livraisonCard.querySelector('#copy-verif-msg').addEventListener('click', function() { copyBlock('verif-msg-body', this); });
+  main.appendChild(livraisonCard);
+
+  // Footer
+  var footer = document.createElement('div');
+  footer.className = 'footer';
+  footer.textContent = '© 2026 Cohérence Maintenance — Outils de maintenance et développement';
+  main.appendChild(footer);
+
+  // Bind events
+  main.querySelectorAll('[data-vsec]').forEach(function(el) {
+    el.addEventListener('click', function(e){ e.stopPropagation(); toggleVerifSection(this.dataset.vsec); });
+  });
+  main.querySelectorAll('[data-vtask]').forEach(function(el) {
+    el.addEventListener('click', function(e){ e.stopPropagation(); setVerifTask(this.dataset.vtask, this.dataset.vval); });
+  });
+  main.querySelectorAll('[data-vstatus]').forEach(function(el) {
+    el.addEventListener('click', function(){ setVerifStatus(this.dataset.vstatus); });
+  });
+}
+
+function initVerif() { renderVerif(); }
 </script>
 </body>
 </html>
